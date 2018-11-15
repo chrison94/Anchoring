@@ -21,7 +21,7 @@ public class CheckTx {
 	    Hashing hs = new Hashing();
 	    
 	    /* Preparing Waves Attachment */
-	    tx = node.getTransactionData("GA49qXuMVbb4hmbGbS9xBctNymToPo3LTBDFHvUUN5Vj");
+	    tx = node.getTransactionData("CtCPYwRJws8TytEfK597b4REHfV46mjnorQj2tomrazu");
 	    attachment = tx.get("attachment");
 	    hash = String.valueOf(attachment);
 	    decodedHashByte = Base58.decode(hash);

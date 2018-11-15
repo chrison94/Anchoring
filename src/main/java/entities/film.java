@@ -2,46 +2,23 @@ package entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-
-import hibernate.LastUpdateListener;
-
 @Entity
-@EntityListeners( LastUpdateListener.class )
 @Table(name = "film",
 uniqueConstraints = { @UniqueConstraint(columnNames = { "id" }) })
 
 public class film {
-	@Id
-	@Column(name = "id")
 	int id;
-	
-	@Column(name = "titleId")	 
 	String titleId;
-	
-	@Column(name = "ordering")
 	int ordering;
-	
-	@Column(name = "title")
 	String title;
-	
-	@Column(name = "region")
 	String region;
-
-	@Column(name = "language")
 	String language;
-	
-	@Column(name = "types")	
 	String types;
-
-	@Column(name = "attributes")
 	String attributes;
-
-	@Column(name = "isOriginalTitle")
 	boolean isOriginalTitle; 
 
 	public film() {
@@ -61,6 +38,8 @@ public film(int id,String titleId, int ordering, String title, String region, St
 	this.isOriginalTitle = isOriginalTitle;
 	}
 
+@Id
+@Column(name = "id")
 public int getId() {
 	return id;
 }
@@ -68,6 +47,7 @@ public void setId(int id) {
 	this.id = id;
 }
 
+@Column(name = "titleId")
 public String getTitleId() {
 	return titleId;
 }
@@ -75,6 +55,7 @@ public void setTitleId(String titleId) {
 	this.titleId = titleId;
 }
 
+@Column(name = "ordering")
 public int getOrdering() {
 	return ordering;
 }
@@ -82,6 +63,7 @@ public void setOrdering(int ordering) {
 	this.ordering = ordering;
 }
 
+@Column(name = "title")
 public String getTitle() {
 	return title;
 }
@@ -89,6 +71,7 @@ public void setTitle(String title) {
 	this.title = title;
 }
 
+@Column(name = "region")
 public String getRegion() {
 	return region;
 }
@@ -96,6 +79,7 @@ public void setRegion(String region) {
 	this.region = region;
 }
 
+@Column(name = "language")
 public String getLanguage() {
 	return language;
 }
@@ -103,6 +87,7 @@ public void setLanguage(String language) {
 	this.language = language;
 }
 
+@Column(name = "types")
 public String getTypes() {
 	return types;
 }
@@ -110,6 +95,7 @@ public void setTypes(String types) {
 	this.types = types;
 }
 
+@Column(name = "attributes")
 public String getAttributes() {
 	return attributes;
 }
@@ -117,6 +103,7 @@ public void setAttributes(String attributes) {
 	this.attributes = attributes;
 }
 
+@Column(name = "isOriginalTitle")
 public boolean getIsOriginalTitle() {
 	return isOriginalTitle;
 }

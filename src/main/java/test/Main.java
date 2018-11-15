@@ -1,12 +1,9 @@
 package test;
 
-
-
 import functions.*;
 
 public class Main {
-	
-	 
+   
    public static void main(String[] args) {
        HibernateQueryFilm hq = new HibernateQueryFilm();
        WavesJ wj = new WavesJ();

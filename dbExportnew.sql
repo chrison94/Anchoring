@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 18. Nov 2018 um 17:56
+-- Erstellungszeit: 18. Nov 2018 um 21:02
 -- Server-Version: 10.1.35-MariaDB
 -- PHP-Version: 7.2.9
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `proteindatabase`
 --
-CREATE DATABASE IF NOT EXISTS `proteindatabase` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `proteindatabase`;
 
 -- --------------------------------------------------------
 
@@ -236,8 +234,7 @@ ALTER TABLE `accessions`
 -- Indizes für die Tabelle `accinfos`
 --
 ALTER TABLE `accinfos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FKovl2omfpol2po9vgiw3c2l15e` (`fkAccessionId`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indizes für die Tabelle `authors`
@@ -285,12 +282,7 @@ ALTER TABLE `organism`
 -- Indizes für die Tabelle `proteinentries`
 --
 ALTER TABLE `proteinentries`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FKs5skj9tcu0cr7n498uq2u12r0` (`fkHeaderId`),
-  ADD KEY `FKm4ha1kuumjis6saay1psx74yu` (`fkGeneticsId`),
-  ADD KEY `FK51aarfldtollm0orcps54x2oc` (`fkOrganismId`),
-  ADD KEY `FKhw4tawu693s3ovlsvvtlnd60k` (`fkProteinId`),
-  ADD KEY `FKgmmdoclkakeqxc2m03bl47pbu` (`fkSummaryId`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indizes für die Tabelle `proteins`

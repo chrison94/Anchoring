@@ -6,9 +6,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
-@Table(name="summaries")
+@Table(name="summary")
 public class Summary {
+	@Id
+	@Column(name="id")
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="incrementator", strategy ="increment")
+	private int id;
+
 	@Column(name="length")
 	private String length;
 	
@@ -18,14 +26,6 @@ public class Summary {
 	@Column(name="status")
 	private String status;
 
-	@Id
-	@Column(name="id")
-	@GeneratedValue(generator="incrementor")
-	private int id;
-	
-	@Column(name="fkProteinEntry")
-	private int fk_proteinEntry;
-
     public int getId() {
 		return id;
 	}
@@ -34,13 +34,7 @@ public class Summary {
 		this.id = id;
 	}
 
-	public int getFk_proteinEntry() {
-		return fk_proteinEntry;
-	}
 
-	public void setFk_proteinEntry(int fk_proteinEntry) {
-		this.fk_proteinEntry = fk_proteinEntry;
-	}
 
 	public String getStatus() {
 		return status;
@@ -66,17 +60,15 @@ public class Summary {
 		this.type = type;
 	}
 
-	public Summary(int fk_proteinEntry) {
+	public Summary() {
 		super();
-		this.fk_proteinEntry = fk_proteinEntry;
 	}
 
-	public Summary(String length, String type, String status, int fk_proteinEntry) {
+	public Summary(String length, String type, String status) {
 		super();
 		this.length = length;
 		this.type = type;
 		this.status = status;
-		this.fk_proteinEntry = fk_proteinEntry;
 	}
 
 	@Override

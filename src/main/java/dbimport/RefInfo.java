@@ -1,15 +1,26 @@
 package dbimport;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="refinfos")
 public class RefInfo {
-	private Authors authors;
+	@Id
+	@Column(name="id")
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="incrementator", strategy ="increment")
+	private int id;
 	
 	@Column(name="citation")
 	private String citation;
@@ -25,15 +36,14 @@ public class RefInfo {
 	
 	@Column(name="title")
 	private String title;
-	private Xrefs xrefs;
 	
-	@Id
-	@Column(name="id")
-	@GeneratedValue(generator="incrementor")
-	private int id;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkRefinfoId")
+	private List<Xref> xrefs;
 	
-	@Column(name="fkReference")
-	private int fkReferenceId;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkRefinfoId")
+	private List<Author> authors;
 
     public int getId() {
 		return id;
@@ -43,19 +53,11 @@ public class RefInfo {
 		this.id = id;
 	}
 
-	public int getFkReferenceId() {
-		return fkReferenceId;
-	}
-
-	public void setFkProteinEntry(int fkReferenceId) {
-		this.fkReferenceId = fkReferenceId;
-	}
-
-	public Authors getAuthors() {
+	public List<Author> getAuthors() {
 		return authors;
 	}
 
-	public void setAuthors(Authors authors) {
+	public void setAuthors(List<Author> authors) {
 		this.authors = authors;
 	}
 
@@ -99,34 +101,27 @@ public class RefInfo {
 		this.title = title;
 	}
 	
-	public Xrefs getXrefs() {
+	public List<Xref> getXrefs() {
 		return xrefs;
 	}
 
-	public void setXrefs(Xrefs xrefs) {
+	public void setXrefs(List<Xref> xrefs) {
 		this.xrefs = xrefs;
 	}
 
-	public RefInfo(Authors authors, String citation, String volume, String year, String pages, String title,
-			Xrefs xrefs) {
+	public RefInfo( String citation, String volume, String year, String pages, String title) {
 		super();
-		this.authors = authors;
+//		this.authors = authors;
 		this.citation = citation;
 		this.volume = volume;
 		this.year = year;
 		this.pages = pages;
 		this.title = title;
-		this.xrefs = xrefs;
 	}
 
 	public RefInfo() {
 		super();
 	}
 
-	@Override
-    public String toString() {
-        return "\nauthors: " + getAuthors() + "\ncitation " + getCitation() + "\nvolume " + 
-        getVolume() + "\nyear " + getYear() + " \npages " + getPages() + "\ntitle "+ getTitle() +
-        ((getXrefs() != null) ? getXrefs().toString() : "null");
-    }
+
 }

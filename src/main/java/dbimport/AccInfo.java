@@ -2,8 +2,18 @@ package dbimport;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 @Entity
@@ -11,12 +21,12 @@ import javax.persistence.Column;
 public class AccInfo {
 	@Id
 	@Column(name="id")
-	@GeneratedValue(generator="incrementor")
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="incrementator", strategy ="increment")
 	private int id;
 	
-	@Column(name="fkReferenceId")
-	private int fkReferenceId;
-	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkAccessionId")
 	private Accession accession;
 	
 	@Column(name="moltype")
@@ -25,16 +35,11 @@ public class AccInfo {
 	@Column(name="seqspec")
 	private String seqSpec;
 	
-	private Xrefs xrefs;
+
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkAccinfoId")
+	private List<Xref> xrefs;
 	
-    public int getFkReferenceId() {
-		return fkReferenceId;
-	}
-
-	public void setFkReferenceId(int fkReferenceId) {
-		this.fkReferenceId = fkReferenceId;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -68,31 +73,26 @@ public class AccInfo {
 		this.seqSpec = seqSpec;
 	}
 	
-	public Xrefs getXrefs() {
+	public List<Xref> getXrefs() {
 		return xrefs;
 	}
 
-	public void setXrefs(Xrefs xrefs) {
+	public void setXrefs(List<Xref> xrefs) {
 		this.xrefs = xrefs;
 	}
 
-	public AccInfo(Accession accession, String molType, String seqSpec, Xrefs xrefs, int fkReferenceId) {
+	public AccInfo(Accession accession,String molType, String seqSpec) {
 		super();
 		this.accession = accession;
 		this.molType = molType;
 		this.seqSpec = seqSpec;
-		this.xrefs = xrefs;
-		this.fkReferenceId = fkReferenceId;
+		//this.xrefs = xrefs;
 	}
 
-	public AccInfo(int fkReferenceId) {
+	public AccInfo() {
 		super();
-		this.fkReferenceId = fkReferenceId;
 	}
 
-	@Override
-    public String toString() {
-        return "\naccession: " + this.getAccession()  + "\nMolType: " + this.getMolType()+ "\nseqSpec " + this.getSeqSpec()  
-        + "\nXrefs "+ ((getXrefs() != null) ? getXrefs().toString() : "null");
-    }
+
+    
 }

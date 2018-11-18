@@ -6,16 +6,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name="proteins")
 public class Protein {
 	@Id
 	@Column(name="id")
-	@GeneratedValue(generator="incrementor")
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="incrementator", strategy ="increment")
 	private int id;
 	
-	@Column(name="fkProteinEntry")
-	private int fkProteinEntry;
 	
 	@Column(name="name")
 	private String name;
@@ -36,14 +37,12 @@ public class Protein {
 	public Protein(String name,int fkProteinEntry) {
 		super();
 		this.name = name;
-		this.fkProteinEntry = fkProteinEntry;
 	}
 
 	public Protein() {
 		super();
 	}
 
-	
 	public int getId() {
 		return id;
 	}
@@ -52,13 +51,7 @@ public class Protein {
 		this.id = id;
 	}
 
-	public int getFkProteinEntry() {
-		return fkProteinEntry;
-	}
 
-	public void setFkProteinEntry(int fkProteinEntry) {
-		this.fkProteinEntry = fkProteinEntry;
-	}
 	
 	
 	

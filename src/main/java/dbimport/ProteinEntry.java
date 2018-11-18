@@ -1,10 +1,17 @@
 package dbimport;
 
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 @Entity
@@ -13,43 +20,60 @@ public class ProteinEntry{
 	
 	@Id
 	@Column(name="id")
-	@GeneratedValue(generator="incrementor")
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="incrementator", strategy ="increment")
 	private int id;
 	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkHeaderId")
 	private Header header;
 	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkProteinId")
 	private Protein protein;
 	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkOrganismId")
 	private Organism organism;
 	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkProteinEntryId")
 	private List<Reference> references;
 	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkGeneticsId")
 	private Genetics genetics;
 	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkProteinEntryId")
 	private List<Classification> classification;
 
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkProteinEntryId")
 	private List<Keyword> keywords;
 
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkProteinEntryId")
 	private List<Feature> features;
 	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkSummaryId")
 	private Summary summary;
 	
 	@Column(name="sequence")
 	private String sequence;
 	
-    public ProteinEntry( Header header, Protein protein, Organism organism,
-			List<Reference> references, Genetics genetics, List<Classification> classification, List<Keyword> keywords,
-			List<Feature> features, Summary summary, String sequence) {
+    public ProteinEntry(String sequence) {
 		super();
-		this.header = header;
-		this.protein = protein;
-		this.organism = organism;
-		this.references = references;
-		this.genetics = genetics;
-		this.classification = classification;
-		this.keywords = keywords;
-		this.features = features;
-		this.summary = summary;
+//		this.header = header;
+//		this.protein = protein;
+//		this.organism = organism;
+		//this.genetics = genetics;
+		//this.summary = summary;
+//		this.references = references;
+//		this.classification = classification;
+//		this.keywords = keywords;
+//		this.features = features;
 		this.sequence = sequence;
 	}
     
@@ -63,7 +87,6 @@ public class ProteinEntry{
 	public void setHeader(Header header) {
 		this.header = header;
 	}
-	
 
 	public Protein getProtein() {
 		return protein;
@@ -81,17 +104,6 @@ public class ProteinEntry{
 	public void setOrganism(Organism organism) {
 		this.organism = organism;
 	}
-
-
-	public List<Reference> getReferences() {
-		return references;
-	}
-
-	public void setReferences(List<Reference> references) {
-		this.references = references;
-	}
-
-
 	public Genetics getGenetics() {
 		return genetics;
 	}
@@ -99,7 +111,21 @@ public class ProteinEntry{
 	public void setGenetics(Genetics genetics) {
 		this.genetics = genetics;
 	}
+	public Summary getSummary() {
+		return summary;
+	}
 
+	public void setSummary(Summary summary) {
+		this.summary = summary;
+	}
+	
+	public List<Reference> getReferences() {
+		return references;
+	}
+
+	public void setReferences(List<Reference> references) {
+		this.references = references;
+	}
 
 	public List<Classification> getClassification() {
 		return classification;
@@ -126,15 +152,6 @@ public class ProteinEntry{
 
 	public void setFeatures(List<Feature> features) {
 		this.features = features;
-	}
-
-
-	public Summary getSummary() {
-		return summary;
-	}
-
-	public void setSummary(Summary summary) {
-		this.summary = summary;
 	}
 
 	public String getSequence() {

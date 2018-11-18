@@ -6,18 +6,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name="genetics")
 public class Genetics {
 	
 	@Id
 	@Column(name="id")
-	@GeneratedValue(generator="incrementor")
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="incrementator", strategy ="increment")
 	private int id;
 	
-	@Column(name="fkProteinEntry")
-	private int fk_proteinEntry;
-	
+
 	private String introns;
 	
 	public String getIntrons() {
@@ -28,15 +29,13 @@ public class Genetics {
 		this.introns = introns;
 	}
 	
-	public Genetics(int fkProteinEntry,String introns) {
+	public Genetics(String introns) {
 		super();
 		this.introns = introns;
-		this.fk_proteinEntry = fkProteinEntry;
 	}
 	
-	public Genetics(int fkProteinEntry) {
+	public Genetics() {
 		super();
-		this.fk_proteinEntry = fkProteinEntry;
 	}
 	
     @Override

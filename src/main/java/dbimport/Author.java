@@ -6,16 +6,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name="authors")
 public class Author {
 	@Id
 	@Column(name="id")
-	@GeneratedValue(generator="incrementor")
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="incrementator", strategy ="increment")
 	private int id;
-	
-	@Column(name="fkId")
-	private int fkId;
 	
 	private String name;
 
@@ -27,14 +27,6 @@ public class Author {
 		this.id = id;
 	}
 
-	public int getFkId() {
-		return fkId;
-	}
-
-	public void setFkId(int fkId) {
-		this.fkId = fkId;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -43,15 +35,13 @@ public class Author {
 		this.name = name;
 	}
 
-	public Author(int fkId, String name) {
+	public Author( String name) {
 		super();
-		this.fkId = fkId;
 		this.name = name;
 	}
 
-	public Author(int fkId) {
+	public Author() {
 		super();
-		this.fkId = fkId;
 	}
 	
 	

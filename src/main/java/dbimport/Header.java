@@ -1,26 +1,31 @@
 package dbimport;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="headers")
 public class Header {	
 	@Id
 	@Column(name="id")
-	@GeneratedValue(generator="incrementor")
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="incrementator", strategy ="increment")
 	private int id;
-	
-	@Column(name="fkProteinEntry")
-	private int fk_proteinEntry;
 	
 	@Column(name="uid")
 	private String uid;
 	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkHeaderId")
 	private List<Accession> accessions;
 	
 	@Column(name="createdDate")
@@ -80,19 +85,17 @@ public class Header {
 		this.txtRevDate = txtRevDate;
 	}
 
-	public Header(String uid, List<Accession> accessions, String createdDate, String seqRevDate, String txtRevDate, int fk_proteinEntry) {
+	public Header(String uid, String createdDate, String seqRevDate, String txtRevDate, int fk_proteinEntry) {
 		super();
 		this.uid = uid;
-		this.accessions = accessions;
+		//this.accessions = accessions;
 		this.createdDate = createdDate;
 		this.seqRevDate = seqRevDate;
 		this.txtRevDate = txtRevDate;
-		this.fk_proteinEntry = fk_proteinEntry;
 	}
 
-	public Header(int fk_proteinEntry) {
+	public Header() {
 		super();
-		this.fk_proteinEntry= fk_proteinEntry;
 	}
 
 	@Override
@@ -100,13 +103,7 @@ public class Header {
         return "uid: " + uid + " createdDate " + createdDate + " seqRevDate " + seqRevDate;
     }
 
-	public int getFk_proteinEntry() {
-		return fk_proteinEntry;
-	}
 
-	public void setFk_proteinEntry(int fk_proteinEntry) {
-		this.fk_proteinEntry = fk_proteinEntry;
-	}
 	
 	
 }

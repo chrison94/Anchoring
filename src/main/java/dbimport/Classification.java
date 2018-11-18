@@ -6,12 +6,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name="classifications")
 public class Classification {
 	@Id
 	@Column(name="id")
-	@GeneratedValue(generator="incrementor")
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="incrementator", strategy ="increment")
 	private int id;
 	
 	@Column(name="fkProteinEntryId")
@@ -32,14 +35,16 @@ public class Classification {
 		return fkProteinEntryId;
 	}
 
-	public void setUid(int fkProteinEntryId) {
-		this.fkProteinEntryId = fkProteinEntryId;
+	public void setUid() {
 	}
 
-	public Classification(int fkProteinEntryId,String name) {
+	public Classification(String name) {
 		super();
-		this.fkProteinEntryId = fkProteinEntryId;
 		this.name = name;
 	}
 	
+
+	public Classification() {
+		super();
+	}
 }

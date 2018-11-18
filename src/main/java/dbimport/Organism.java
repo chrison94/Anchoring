@@ -6,9 +6,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name="organism")
 public class Organism {
+	@Id
+	@Column(name="id")
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="incrementator", strategy ="increment")
+	private int id;
+	
 	@Column(name="source")
 	private String source;
 	@Column(name="common")
@@ -16,13 +24,7 @@ public class Organism {
 	@Column(name="formal")
 	private String formal;
 
-	@Id
-	@Column(name="id")
-	@GeneratedValue(generator="incrementor")
-	private int id;
-	
-	@Column(name="fkProteinEntry")
-	private int fkProteinEntry;
+
 	
     public String getSource() {
 		return source;
@@ -55,12 +57,10 @@ public class Organism {
 		this.source = source;
 		this.common = common;
 		this.formal = formal;
-		this.fkProteinEntry = fkProteinEntry;
 	}
 	
-	public Organism(int fkProteinEntry) {
+	public Organism() {
 		super();
-		this.fkProteinEntry = fkProteinEntry;
 	}
 
 	@Override

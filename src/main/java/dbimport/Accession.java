@@ -6,19 +6,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name="accessions")
 public class Accession {
-	@Column(name="name")
-	private String name;
-	
 	@Id
 	@Column(name="id")
-	@GeneratedValue(generator="incrementor")
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="incrementator", strategy ="increment")
 	private int id;
 	
-	@Column(name="fkId")
+	@Column(name="fkHeaderId")
 	private int fkHeaderid;
+	
+	@Column(name="name")
+	private String name;
 	
 	public String getName() {
 		return name;
@@ -44,10 +47,9 @@ public class Accession {
 		this.fkHeaderid = fkHeaderid;
 	}
 	
-	public Accession(String name,  int fkHeaderid) {
+	public Accession(String name) {
 		super();
 		this.name = name;
-		this.fkHeaderid = fkHeaderid;
 	}
 	
 	public Accession() {

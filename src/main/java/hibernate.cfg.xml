@@ -8,7 +8,7 @@
   <session-factory>
       <!-- Database connection settings -->
       <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-      <property name="connection.url">jdbc:mysql://localhost:3306</property>
+      <property name="connection.url">jdbc:mysql://localhost:3306/proteindatabase?useTimezone=true&amp;serverTimezone=UTC&amp;useLegacyDatetimeCode=false</property>
       <property name="connection.username">root</property>
       <property name="connection.password"></property>
  
@@ -26,8 +26,28 @@
  
       <!-- Echo all executed SQL to stdout -->
       <property name="show_sql">true</property>
- 
-      <mapping class="entities.film" />
+ 	
+ 	  <property name="hibernate.format_sql">true</property>
+ 		
+ 	  <property name="hibernate.jdbc.time_zone">UTC</property>
+ 	  <property name="hibernate.hbm2ddl.auto">update</property>
+ 	  
+      <mapping class="dbimport.ProteinEntry" />
+      <mapping class="dbimport.Header" />
+      <mapping class="dbimport.Accession" />
+      <mapping class="dbimport.Protein" />
+      <mapping class="dbimport.Organism" />
+      <mapping class="dbimport.Reference" />
+      <mapping class="dbimport.Keyword" />
+      <mapping class="dbimport.Summary" />
+      <mapping class="dbimport.Xref" />
+      <mapping class="dbimport.RefInfo" />
+      <mapping class="dbimport.AccInfo" />
+      <mapping class="dbimport.Genetics" />
+      <mapping class="dbimport.Author" />
+      <mapping class="dbimport.Feature" />
+      <mapping class="dbimport.Classification" />
+
  
   </session-factory>
  

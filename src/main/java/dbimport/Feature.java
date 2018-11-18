@@ -6,15 +6,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
-@Table(name="feature")
+@Table(name="features")
 public class Feature {
 	@Id
 	@Column(name="id")
-	@GeneratedValue(generator="incrementor")
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="incrementator", strategy ="increment")
 	private int id;
 	
-	@Column(name="fkProteinEntry")
+	@Column(name="fkProteinEntryId")
 	private int fk_proteinEntry;
 	
 	@Column(name="featureType")
@@ -75,6 +78,10 @@ public class Feature {
 		this.fk_proteinEntry = fkProteinEntry;
 	}
 
+	public Feature() {
+		super();
+	}
+	
 	@Override
     public String toString() {
         return "featureType: " + getFeatureType() + " description " + getDescription() + " seqSqc " + getSeqSqc() + " status " +getStatus();

@@ -1,30 +1,40 @@
 package dbimport;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
-@Table(name="references")
+@Table(name="reference")
 public class Reference {
-	@Column(name="refinfo")
-	private RefInfo refinfo;
-	@Column(name="accinfo")
-	private AccInfo accinfo;	
+	@Id
+	@Column(name="id")
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="incrementator", strategy ="increment")
+	private int id;
+	
+	@Column(name="fkProteinEntryId")
+	private int fkProteinEntryId;
+	
 	@Column(name="contents")
 	private String contents;
 	@Column(name="note")
 	private String note;
 	
-	@Id
-	@Column(name="id")
-	@GeneratedValue(generator="incrementor")
-	private int id;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkRefinfoId")
+	private RefInfo refinfo;
 	
-	@Column(name="fkProteinEntry")
-	private int fkProteinEntry;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="fkAccinfoId")
+	private AccInfo accinfo;	
 	
     public RefInfo getRefinfo() {
 		return refinfo;
@@ -66,26 +76,30 @@ public class Reference {
 		this.id = id;
 	}
 
-	public int getFkProteinEntry() {
-		return fkProteinEntry;
+	public int getFkProteinEntryId() {
+		return fkProteinEntryId;
 	}
 
-	public void setFkProteinEntry(int fkProteinEntry) {
-		this.fkProteinEntry = fkProteinEntry;
+	public void setFkProteinEntryId(int fkProteinEntryId) {
+		this.fkProteinEntryId = fkProteinEntryId;
 	}
 	
-	public Reference(RefInfo refinfo, AccInfo accinfo,String note,String contents, int fkProteinEntry) {
+	public Reference(String note,String contents, int fkProteinEntryId) {
 		super();
-		this.refinfo = refinfo;
-		this.accinfo = accinfo;
+//		this.refinfo = refinfo;
+//		this.accinfo = accinfo;
 		this.note = note;
 		this.contents = contents;
-		this.fkProteinEntry = fkProteinEntry;
+		this.fkProteinEntryId = fkProteinEntryId;
 	}
 
-	public Reference(int fkProteinEntry) {
+	public Reference(int fkProteinEntryId) {
 		super();
-		this.fkProteinEntry = fkProteinEntry;
+		this.fkProteinEntryId = fkProteinEntryId;
+	}
+	
+	public Reference() {
+		super();
 	}
 
 

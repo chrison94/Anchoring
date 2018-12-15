@@ -12,7 +12,6 @@ public class ProteinDatabase {
 		this.database = database;
 	}
 	
-	
 	public int getId() {
 		return id;
 	}

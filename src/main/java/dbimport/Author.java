@@ -4,19 +4,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.ColumnDefault;
 
-import org.hibernate.annotations.GenericGenerator;
-
-@Entity
-@Table(name="authors")
+@Entity(name="authors")
 public class Author {
-	@Id
-	@Column(name="id")
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="incrementator", strategy ="increment")
+	@Id @Column(name="id") 	
+	@GeneratedValue(generator="CUST_GEN")
 	private int id;
 	
+	@Column(name="name")
+	@ColumnDefault("null")
 	private String name;
 
 	public int getId() {

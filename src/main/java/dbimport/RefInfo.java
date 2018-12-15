@@ -1,5 +1,6 @@
 package dbimport;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,18 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
-@Entity
-@Table(name="refinfos")
+@Entity(name="refinfos")
 public class RefInfo {
-	@Id
-	@Column(name="id")
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="incrementator", strategy ="increment")
+	@Id @Column(name="id") 	
+	@GeneratedValue(generator="CUST_GEN")
 	private int id;
 	
 	@Column(name="citation")
@@ -38,12 +34,12 @@ public class RefInfo {
 	private String title;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkRefinfoId")
-	private List<Xref> xrefs;
+	@JoinTable(name="xrefs",joinColumns=@JoinColumn(name="fkRefinfoId" , insertable=false, updatable=false , nullable = true))
+	private Collection<Xref> xrefs;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkRefinfoId")
-	private List<Author> authors;
+	@JoinTable(name="authors",joinColumns=@JoinColumn(name="fkRefinfoId" , insertable=false, updatable=false , nullable = true))
+	private Collection<Author> authors;
 
     public int getId() {
 		return id;
@@ -53,7 +49,7 @@ public class RefInfo {
 		this.id = id;
 	}
 
-	public List<Author> getAuthors() {
+	public Collection<Author> getAuthors() {
 		return authors;
 	}
 
@@ -101,7 +97,7 @@ public class RefInfo {
 		this.title = title;
 	}
 	
-	public List<Xref> getXrefs() {
+	public Collection<Xref> getXrefs() {
 		return xrefs;
 	}
 

@@ -1,63 +1,58 @@
 package dbimport;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
-import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
+import java.util.Collection;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
-@Entity
-@Table(name="proteinEntries")
+@Entity(name="proteinentries")
 public class ProteinEntry{
 	
-	@Id
-	@Column(name="id")
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="incrementator", strategy ="increment")
+	@Id @Column(name="id") 	
+	@GeneratedValue(generator="CUST_GEN")
 	private int id;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkHeaderId")
+	@JoinColumn(name="fkProteinEntryId", insertable=false, updatable=false, nullable = true)
 	private Header header;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkProteinId")
+	@JoinColumn(name="fkProteinEntryId", insertable=false, updatable=false , nullable = true)
 	private Protein protein;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkOrganismId")
+	@JoinColumn(name="fkProteinEntryId", insertable=false, updatable=false , nullable = true)
 	private Organism organism;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkProteinEntryId")
-	private List<Reference> references;
+	@JoinTable(name="reference",joinColumns=@JoinColumn(name="fkProteinEntryId"))
+	private Collection<Reference> references;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkGeneticsId")
+	@JoinColumn(name="fkProteinEntryId", insertable=false, updatable=false , nullable = true)
 	private Genetics genetics;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkProteinEntryId")
-	private List<Classification> classification;
+	@JoinTable(name="classifications",joinColumns=@JoinColumn(name="fkProteinEntryId", nullable = true))
+	private Collection<Classification> classification;
 
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkProteinEntryId")
-	private List<Keyword> keywords;
+	@JoinTable(name="keywords",joinColumns=@JoinColumn(name="fkProteinEntryId"))
+	private Collection<Keyword> keywords;
 
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkProteinEntryId")
-	private List<Feature> features;
+	@JoinTable(name="features",joinColumns=@JoinColumn(name="fkProteinEntryId"))
+	private Collection<Feature> features;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkSummaryId")
+	@JoinColumn(name="fkSummaryId", insertable=false, updatable=false)
 	private Summary summary;
 	
 	@Column(name="sequence")
@@ -96,7 +91,6 @@ public class ProteinEntry{
 		this.protein = protein;
 	}
 
-
 	public Organism getOrganism() {
 		return organism;
 	}
@@ -119,7 +113,7 @@ public class ProteinEntry{
 		this.summary = summary;
 	}
 	
-	public List<Reference> getReferences() {
+	public Collection<Reference> getReferences() {
 		return references;
 	}
 
@@ -127,7 +121,7 @@ public class ProteinEntry{
 		this.references = references;
 	}
 
-	public List<Classification> getClassification() {
+	public Collection<Classification> getClassification() {
 		return classification;
 	}
 
@@ -137,7 +131,7 @@ public class ProteinEntry{
 	}
 
 
-	public List<Keyword> getKeywords() {
+	public Collection<Keyword> getKeywords() {
 		return keywords;
 	}
 
@@ -146,7 +140,7 @@ public class ProteinEntry{
 	}
 
 
-	public List<Feature> getFeatures() {
+	public Collection<Feature> getFeatures() {
 		return features;
 	}
 

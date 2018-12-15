@@ -1,33 +1,26 @@
 package dbimport;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
+import java.util.Collection;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
-@Entity
-@Table(name="accinfos")
+@Entity(name="accinfos")
 public class AccInfo {
-	@Id
-	@Column(name="id")
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="incrementator", strategy ="increment")
+	@Id @Column(name="id") 	
+	@GeneratedValue(generator="CUST_GEN")
 	private int id;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkAccessionId")
-	private Accession accession;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="accessions",joinColumns=@JoinColumn(name="fkAccInfoId", nullable = true))
+	private Collection<Accession> accessions;
 	
 	@Column(name="moltype")
 	private String molType;
@@ -35,9 +28,8 @@ public class AccInfo {
 	@Column(name="seqspec")
 	private String seqSpec;
 	
-
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkAccinfoId")
+	@JoinTable(name="xrefs",joinColumns=@JoinColumn(name="fkAccinfoId"))
 	private List<Xref> xrefs;
 	
 	public int getId() {
@@ -48,14 +40,13 @@ public class AccInfo {
 		this.id = id;
 	}
 
-	public Accession getAccession() {
-		return accession;
+	public Collection<Accession> getAccessions() {
+		return accessions;
 	}
 
-	public void setAccession(Accession accession) {
-		this.accession = accession;
+	public void setAccession(Collection<Accession> accessions) {
+		this.accessions = accessions;
 	}
-
 
 	public String getMolType() {
 		return molType;
@@ -81,9 +72,9 @@ public class AccInfo {
 		this.xrefs = xrefs;
 	}
 
-	public AccInfo(Accession accession,String molType, String seqSpec) {
+	public AccInfo(Collection<Accession> accession,String molType, String seqSpec) {
 		super();
-		this.accession = accession;
+		this.accessions = accession;
 		this.molType = molType;
 		this.seqSpec = seqSpec;
 		//this.xrefs = xrefs;

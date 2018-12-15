@@ -4,17 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
-@Entity
-@Table(name="summary")
+@Entity(name="summary")
 public class Summary {
-	@Id
-	@Column(name="id")
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="incrementator", strategy ="increment")
+	@Id @Column(name="id") 	
+	@GeneratedValue(generator="CUST_GEN")
 	private int id;
 
 	@Column(name="length")
@@ -33,8 +27,6 @@ public class Summary {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
 
 	public String getStatus() {
 		return status;

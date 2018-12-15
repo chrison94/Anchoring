@@ -7,17 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
-@Entity
-@Table(name="reference")
+@Entity(name="reference")
 public class Reference {
-	@Id
-	@Column(name="id")
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="incrementator", strategy ="increment")
+	@Id @Column(name="id") 	
+	@GeneratedValue(generator="CUST_GEN")
 	private int id;
 	
 	@Column(name="fkProteinEntryId")
@@ -29,11 +23,11 @@ public class Reference {
 	private String note;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkRefinfoId")
+	@JoinColumn(name="fkReferenceId", insertable=false, updatable=false , nullable = true)
 	private RefInfo refinfo;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkAccinfoId")
+	@JoinColumn(name="fkReferenceId", insertable=false, updatable=false , nullable = true)
 	private AccInfo accinfo;	
 	
     public RefInfo getRefinfo() {

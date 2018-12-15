@@ -4,23 +4,24 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.ColumnDefault;
 
-import org.hibernate.annotations.GenericGenerator;
-
-@Entity
-@Table(name="accessions")
+@Entity(name="accessions")
 public class Accession {
-	@Id
-	@Column(name="id")
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="incrementator", strategy ="increment")
+	@Id @Column(name="id") 	
+	@GeneratedValue(generator="CUST_GEN")
 	private int id;
 	
 	@Column(name="fkHeaderId")
-	private int fkHeaderid;
+	@ColumnDefault("null")
+	private int fkHeaderId;
+	
+	@Column(name="fkAccInfoId")
+	@ColumnDefault("null")
+	private int fkAccInfoId;
 	
 	@Column(name="name")
+	@ColumnDefault("null")
 	private String name;
 	
 	public String getName() {
@@ -39,14 +40,6 @@ public class Accession {
 		this.id = id;
 	}
 	
-	public int getFkAccessionsid() {
-		return fkHeaderid;
-	}
-	
-	public void setFkAccessionsid(int fkHeaderid) {
-		this.fkHeaderid = fkHeaderid;
-	}
-	
 	public Accession(String name) {
 		super();
 		this.name = name;
@@ -54,6 +47,22 @@ public class Accession {
 	
 	public Accession() {
 		super();
+	}
+
+	public int getFkHeaderId() {
+		return fkHeaderId;
+	}
+
+	public void setFkHeaderId(int fkHeaderId) {
+		this.fkHeaderId = fkHeaderId;
+	}
+
+	public int getFkAccInfo() {
+		return fkAccInfoId;
+	}
+
+	public void setFkAccInfo(int fkAccInfo) {
+		this.fkAccInfoId = fkAccInfo;
 	}
 	
 }

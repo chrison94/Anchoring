@@ -1,12 +1,12 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -21,7 +21,6 @@ import dbimport.Header;
 import dbimport.Keyword;
 import dbimport.Organism;
 import dbimport.Protein;
-import dbimport.ProteinDatabase;
 import dbimport.ProteinEntry;
 import dbimport.RefInfo;
 import dbimport.Reference;
@@ -29,11 +28,11 @@ import dbimport.Summary;
 import dbimport.Xref;
 import hibernate.HibernateUtils;
 
-class Main{
+public class main{
 	public static void main(String args[]) throws SAXException, IOException, ParserConfigurationException {
 		System.out.println("test");
 		/* import database */
-		File xmlFile = new File("t.xml");
+		File xmlFile = new File("pswd7003.xml");
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder;
 		
@@ -42,27 +41,29 @@ class Main{
 		doc.getDocumentElement();
 		xmlToMysqlDbB(doc);
 		
+		//xmlTest();
 	}
 	
 	private static void xmlToMysqlDbB(Document doc) {
 		/** Prepare db connection*/
-		SessionFactory sFactory = HibernateUtils.getSessionFactory();
-		Session session = sFactory.getCurrentSession();
-		session.getTransaction().begin();
+
 		
 		/*get all nodes with names like ProteinEntry and Database */
 		NodeList proteinNodeList 		=  doc.getElementsByTagName("ProteinEntry");
-		NodeList proteinDatabaseList 	=  doc.getElementsByTagName("Database");
+		//NodeList proteinDatabaseList 	=  doc.getElementsByTagName("Database");
 		
 		/*ProrteinDatabase init*/
-		ProteinDatabase proteinDatabase = new ProteinDatabase();
-		
-		proteinDatabase.setDatabase(proteinDatabaseList.item(0).getTextContent());
+//		ProteinDatabase proteinDatabase = new ProteinDatabase();
+//		
+//		proteinDatabase.setDatabase(proteinDatabaseList.item(0).getTextContent());
 
 		/*init all ProteinEntries*/
 		/****************** ProteinEntry *******************/
 	    for(int b=0; b<proteinNodeList.getLength(); b++)
 	    {
+			Session session = HibernateUtils.getSessionFactory().openSession();
+			session.beginTransaction();
+
 	    	ProteinEntry proteinEntry = new ProteinEntry();
 	    	List<Reference> references = new ArrayList<Reference>();
 	    	List<Feature> features = new ArrayList<Feature>();
@@ -200,14 +201,13 @@ class Main{
 	        			if(referenceChild.getNodeName() == "accinfo") {
 	        				
 	        				AccInfo accinfo = new AccInfo();
-	        				
+	        				Collection<Accession> accessions = new ArrayList<Accession>();
 	        				for(int c=0; c<referenceChild.getChildNodes().getLength(); c++) {
-	        					
 	        					Node accinfoChild = referenceChild.getChildNodes().item(c);
 	        					System.out.println("");
 	        					/****************** Accession *******************/
 	        					if(accinfoChild.getNodeName() == "accession") {
-	        						accinfo.setAccession(new Accession(accinfoChild.getTextContent()));
+	        						accessions.add(new Accession(accinfoChild.getTextContent()));
 	        					}
 	        					/****************** mol-type *******************/
 	        					if(accinfoChild.getNodeName()== "mol-type") {
@@ -234,9 +234,12 @@ class Main{
 	        								xrefs.add(new Xref(db,uid,0,accinfo.getId()));
 	        							}
 	        						}
+	        						
 	        						accinfo.setXrefs(xrefs);
 	        					}
+	        					accinfo.setAccession(accessions);
 	        				}
+	        				
 	        				reference.setAccinfo(accinfo);
 	        			}
 	        		}
@@ -320,13 +323,27 @@ class Main{
 	        proteinEntry.setReferences(references);
 	        session.save(proteinEntry);
 	        
+			session.getTransaction().commit();
+			session.close();
 	    }
-	    
-	    session.getTransaction().commit();
-	    sFactory.close();
+	    //session.getTransaction().commit();
+	    //sFactory.close();
 	   // proteinDatabase.setProteinEntries(proteinEntries);
 	    
 	}
 
-	
+	private static void xmlTest(){
+		
+		Header h = new Header("test","12.12.2018","adasd","asdasdad",2);
+		List<Accession> l = new ArrayList<Accession>();
+		l.add(new Accession("asd"));
+		h.setAccessions(l);
+		
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.save(h);
+		session.getTransaction().commit();
+		
+		
+	}
 }

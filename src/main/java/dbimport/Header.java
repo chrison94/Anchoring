@@ -1,32 +1,29 @@
 package dbimport;
+import java.util.Collection;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import org.hibernate.annotations.ColumnDefault;
 
-import org.hibernate.annotations.GenericGenerator;
-
-@Entity
-@Table(name="headers")
-public class Header {	
-	@Id
-	@Column(name="id")
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="incrementator", strategy ="increment")
+@Entity(name="headers")
+public class Header {	 
+	@Id @Column(name="id") 	
+	@GeneratedValue(generator="CUST_GEN")
 	private int id;
 	
 	@Column(name="uid")
+	@ColumnDefault("null")
 	private String uid;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkHeaderId")
-	private List<Accession> accessions;
+	@JoinTable(name="accessions",joinColumns=@JoinColumn(name="fkHeaderId", nullable = true))
+	private Collection<Accession> accessions;
 	
 	@Column(name="createdDate")
 	private String createdDate;
@@ -53,7 +50,7 @@ public class Header {
 		this.uid = uid;
 	}
 
-	public List<Accession> getAccessions() {
+	public Collection<Accession> getAccessions() {
 		return accessions;
 	}
 

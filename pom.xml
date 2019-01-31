@@ -22,7 +22,6 @@
         </repository>
     </repositories>
     
-    
     <dependencies>
  
  
@@ -43,12 +42,12 @@
  
  
         <!-- MySQL JDBC driver -->
-        <!-- http://mvnrepository.com/artifact/mysql/mysql-connector-java%20-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.34</version>
-        </dependency>
+   		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+	    	<groupId>mysql</groupId>
+	    	<artifactId>mysql-connector-java</artifactId>
+	    	<version>8.0.12</version>
+		</dependency>
  
         <!-- Oracle JDBC driver -->
         <dependency>
@@ -84,6 +83,13 @@
       		<artifactId>log4j-core</artifactId>
       		<version>2.8.2</version>
     	</dependency>
+    	
+    	<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20180813</version>
+		</dependency>    	
     </dependencies>
     
 </project>

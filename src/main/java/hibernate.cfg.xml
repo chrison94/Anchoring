@@ -8,9 +8,9 @@
   <session-factory>
       <!-- Database connection settings -->
       <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-      <property name="connection.url">jdbc:mysql://localhost:3306/film</property>
-      <property name="connection.username">--USERNAME--</property>
-      <property name="connection.password">--PASSWORD--</property>
+      <property name="connection.url">jdbc:mysql://localhost:3306/dbanchoring?useTimezone=true&amp;serverTimezone=UTC&amp;useLegacyDatetimeCode=false</property>
+      <property name="connection.username">root</property>
+      <property name="connection.password"></property>
  
       <!-- JDBC connection pool (use the built-in) -->
       <property name="connection.pool_size">1</property>
@@ -26,9 +26,39 @@
  
       <!-- Echo all executed SQL to stdout -->
       <property name="show_sql">true</property>
+ 	
+ 	  <property name="hibernate.format_sql">true</property>
+ 		
+ 	  <property name="hibernate.jdbc.time_zone">UTC</property>
+    <property name="hibernate.id.new_generator_mappings">false</property>
+ 	  
+      <mapping class="dbimport.ProteinEntry" />
+      <mapping class="dbimport.Header" />
+      <mapping class="dbimport.Accession" />
+      <mapping class="dbimport.Protein" />
+      <mapping class="dbimport.Organism" />
+      <mapping class="dbimport.Reference" />
+      <mapping class="dbimport.Keyword" />
+      <mapping class="dbimport.Summary" />
+      <mapping class="dbimport.Xref" />
+      <mapping class="dbimport.RefInfo" />
+      <mapping class="dbimport.AccInfo" />
+      <mapping class="dbimport.Genetics" />
+      <mapping class="dbimport.Author" />
+      <mapping class="dbimport.Feature" />
+      <mapping class="dbimport.Classification" />
+	  <mapping class="dbimport.backup" />
  
-      <mapping class="entities.film" />
- 
+  <!-- 	<event type="save-update"> -->
+  	<event type="post-update">
+            <listener class="listener.PostUpdateEventListenerImp"/>               
+    </event>
+    <event type="load">
+            <listener class="listener.LoadEventListenerImp"/>
+    </event>
+ 	<event type="post-insert">
+            <listener class="listener.PostInsertListenerImp"/>
+    </event>
   </session-factory>
  
 </hibernate-configuration>

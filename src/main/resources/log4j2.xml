@@ -9,12 +9,13 @@
 
   </Appenders>
   <Loggers>
-    <!-- Log everything in hibernate -->
-    <Logger name="hibernate" level="trace"
-      additivity="false">
-      <AppenderRef ref="Console" />
-    </Logger>
-
+    <!-- Log everything in hibernate 
+    <logger name="org.hibernate.type" additivity="false">
+        <level value="TRACE" />
+        <appender-ref ref="console" />
+    </logger>
+	-->
+ 
     <Root level="error">
       <AppenderRef ref="Console" />
     </Root>

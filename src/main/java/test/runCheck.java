@@ -1,12 +1,16 @@
 package test;
 
-import functions.*;
+/***********************/
+/* Erstmal out of date */
+/***********************/
+
+//import functions.*;
 
 public class runCheck {
    
    public static void main(String[] args) {
-       HibernateQueryFilm hq = new HibernateQueryFilm();
-       WavesJ wj = new WavesJ();
+   /*  HibernateQueryFilm hq = new HibernateQueryFilm(); **** HIER NEUE F
+   //    WavesJ wj = new WavesJ();
        Hashing hs = new Hashing();
        String rtStatement;
        System.out.println(System.getProperty("java.vendor"));
@@ -16,13 +20,13 @@ public class runCheck {
            hq.doNewQuery(); 
            rtStatement = hs.inputStreamDigest();
            if(rtStatement != "Fehler") {
-        	   wj.transaction(rtStatement);   
+        	//   wj.transaction(rtStatement);   
            }
            
        } catch (Exception e) {
            e.printStackTrace();
        }
    }
-
-
+*/
+   }
 }

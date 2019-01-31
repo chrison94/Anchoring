@@ -1,47 +1,39 @@
-package hibernate;
-
-import javax.persistence.PrePersist;
+/*
+ *  OUT OF DATE
+ * package hibernate;
+ 
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.persistence.PostPersist;
 import javax.persistence.PostUpdate;
 
-import entities.film;
+import dbimport.Accession;
+import dbimport.Protein;
 import functions.Hashing;
-import functions.WavesJ;
+import functions.WavesDataTransactions;
 
 public class LastUpdateListener {
-
-
 	@PostUpdate
-	@PrePersist
-	public void setLastUpdate( film flm ) throws IOException {
+	@PostPersist
+	public  void LastUpdate( Protein prt ) throws IOException {
 		Hashing hs = new Hashing();
 		FileWriter writer = new FileWriter("test.txt");
         BufferedWriter bufferedWriter = new BufferedWriter(writer);
         String rtStatement;
-        WavesJ wj = new WavesJ();
-        
+        WavesDataTransactions wdt = new WavesDataTransactions();
         // Execute Query
         try {              
 
-     	/* bufferedWriter input */
-        bufferedWriter.write(flm.getId() + ' ');
-        bufferedWriter.write(flm.getTitleId() + ' ');
-        bufferedWriter.write(flm.getOrdering() + ' ');
-        bufferedWriter.write(flm.getTitle() + ' ');
-        bufferedWriter.write(flm.getRegion() + ' ');
-        bufferedWriter.write(flm.getLanguage() + ' ');
-        bufferedWriter.write(flm.getTypes() + ' ');
-        bufferedWriter.write(flm.getAttributes() + ' ');
-        bufferedWriter.write(String.valueOf(flm.getIsOriginalTitle()));
+     	/* bufferedWriter input 
+        bufferedWriter.write(prt.getId() + ' ');
+        bufferedWriter.write(prt.getName() + ' ');
         bufferedWriter.close();
-        
         rtStatement = hs.inputStreamDigest();
         if(rtStatement != "Fehler") {
-     	   wj.transaction(rtStatement);   
+        	wdt.doWork(rtStatement);
         }
         
     } catch (Exception e) {
@@ -49,4 +41,4 @@ public class LastUpdateListener {
     }
 
 	}
-}
+} */

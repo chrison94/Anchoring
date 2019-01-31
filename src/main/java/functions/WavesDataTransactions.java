@@ -30,12 +30,6 @@ public class WavesDataTransactions implements Runnable {
 		Node node = new Node();
 	    long fee = 1300000;
 	    System.out.println("wavvvvvv" + hashList.size());
-	    try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 	    int i = 0;	   
 	            	    List<DataEntry<?>> dataT = new LinkedList<DataEntry<?>>(); 	        		
 	                    for(Object hash : hashList) {

@@ -41,12 +41,7 @@ public class WavesDataTransactionsTimestamp implements Runnable {
 	    List<DataEntry<?>> data = new LinkedList<DataEntry<?>>();
 
 	    System.out.println(hashList.size());
-	    try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+	  
 	    for(Object hash : hashList) {
             String timestamp = Long.toString(timestampList.get(i));
             String tableNameVal = tableName.get(i);

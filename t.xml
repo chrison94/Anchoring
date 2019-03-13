@@ -275,10 +275,10 @@ GDVEKGKKIFIMKCSQCHTVEKGGKHKTGPNLHGLFGRKTGQAPGYSYTAANKNKGIIWG
 EDTLMEYLENPKKYIPGTKMIFVGIKKKEERADLIAYLKKATNE
 </sequence>
 </ProteinEntry>
-<ProteinEntry id="CCMQR">
+<ProteinEntry id="CCCZ">
 <header>
-  <uid>CCMQR</uid>
-  <accession>A00003</accession>
+  <uid>CCCZ</uid>
+  <accession>A00002</accession>
   <created_date>17-Mar-1987</created_date>
   <seq-rev_date>17-Mar-1987</seq-rev_date>
   <txt-rev_date>03-Mar-2000</txt-rev_date>
@@ -287,30 +287,35 @@ EDTLMEYLENPKKYIPGTKMIFVGIKKKEERADLIAYLKKATNE
   <name>cytochrome c</name>
 </protein>
 <organism>
-  <source>rhesus macaque</source>
-  <common>rhesus macaque</common>
-  <formal>Macaca mulatta</formal>
+  <source>chimpanzee</source>
+  <common>chimpanzee</common>
+  <formal>Pan troglodytes</formal>
 </organism>
 <reference>
-<refinfo refid="A00003">
+<refinfo refid="A94601">
   <authors>
-  <author>Rothfus, J.A.</author>
-  <author>Smith, E.L.</author>
+  <author>Needleman, S.B.</author>
   </authors>
-  <citation>J. Biol. Chem.</citation>
-  <volume>240</volume><year>1965</year><pages>4277-4283</pages>
-  <title>Amino acid sequence of rhesus monkey heart cytochrome c.</title>
-  <xrefs>
-  <xref><db>MUID</db><uid>66045191</uid></xref>
-  </xrefs>
+  <citation type="submission">submitted to the Atlas</citation>
+  <month>October</month><year>1968</year>
 </refinfo>
-  <contents>compositions of chymotryptic peptides</contents>
-  <contents>sequences of residues 55-61 and 68-70</contents>
-<accinfo label="ROT">
-  <accession>A00003</accession>
+<accinfo label="NEE">
+  <accession>A00002</accession>
   <mol-type>protein</mol-type>
   <seq-spec>1-104</seq-spec>
 </accinfo>
+</reference>
+<reference>
+<refinfo refid="A94455">
+  <authors>
+  <author>Needleman, S.B.</author>
+  <author>Margoliash, E.</author>
+  </authors>
+  <citation type="other">unpublished results, 1966, cited by Margoliash, E., and Fitch, W.M., Ann. N.Y. Acad. Sci. 151, 359-381</citation>
+  <year>1968</year>
+</refinfo>
+  <contents>annotation</contents>
+  <contents>compositions of chymotryptic peptides</contents>
 </reference>
 <classification>
   <superfamily>cytochrome c</superfamily>
@@ -336,7 +341,7 @@ EDTLMEYLENPKKYIPGTKMIFVGIKKKEERADLIAYLKKATNE
   <feature-type>modified-site</feature-type>
   <description>acetylated amino end (Gly)</description>
   <seq-spec>1</seq-spec>
-  <status>experimental</status>
+  <status>predicted</status>
 </feature>
 <feature>
   <feature-type>binding-site</feature-type>
@@ -356,7 +361,187 @@ EDTLMEYLENPKKYIPGTKMIFVGIKKKEERADLIAYLKKATNE
   <status>tentative</status>
 </summary>
 <sequence>
-GDVEKGKKIFIMKCSQCHTVEKGGKHKTGPNLHGLFGRKTGQAPGYSYTAANKNKGITWG
+GDVEKGKKIFIMKCSQCHTVEKGGKHKTGPNLHGLFGRKTGQAPGYSYTAANKNKGIIWG
+EDTLMEYLENPKKYIPGTKMIFVGIKKKEERADLIAYLKKATNE
+</sequence>
+</ProteinEntry>
+<ProteinEntry id="CCCZ">
+<header>
+  <uid>CCCZ</uid>
+  <accession>A00002</accession>
+  <created_date>17-Mar-1987</created_date>
+  <seq-rev_date>17-Mar-1987</seq-rev_date>
+  <txt-rev_date>03-Mar-2000</txt-rev_date>
+</header>
+<protein>
+  <name>cytochrome c</name>
+</protein>
+<organism>
+  <source>chimpanzee</source>
+  <common>chimpanzee</common>
+  <formal>Pan troglodytes</formal>
+</organism>
+<reference>
+<refinfo refid="A94601">
+  <authors>
+  <author>Needleman, S.B.</author>
+  </authors>
+  <citation type="submission">submitted to the Atlas</citation>
+  <month>October</month><year>1968</year>
+</refinfo>
+<accinfo label="NEE">
+  <accession>A00002</accession>
+  <mol-type>protein</mol-type>
+  <seq-spec>1-104</seq-spec>
+</accinfo>
+</reference>
+<reference>
+<refinfo refid="A94455">
+  <authors>
+  <author>Needleman, S.B.</author>
+  <author>Margoliash, E.</author>
+  </authors>
+  <citation type="other">unpublished results, 1966, cited by Margoliash, E., and Fitch, W.M., Ann. N.Y. Acad. Sci. 151, 359-381</citation>
+  <year>1968</year>
+</refinfo>
+  <contents>annotation</contents>
+  <contents>compositions of chymotryptic peptides</contents>
+</reference>
+<classification>
+  <superfamily>cytochrome c</superfamily>
+  <superfamily>cytochrome c homology</superfamily>
+</classification>
+<keywords>
+<keyword>acetylated amino end</keyword>
+<keyword>chromoprotein</keyword>
+<keyword>electron transfer</keyword>
+<keyword>heme</keyword>
+<keyword>iron</keyword>
+<keyword>metalloprotein</keyword>
+<keyword>mitochondrion</keyword>
+<keyword>oxidative phosphorylation</keyword>
+<keyword>respiratory chain</keyword>
+</keywords>
+<feature label="CYC">
+  <feature-type>domain</feature-type>
+  <description>cytochrome c homology</description>
+  <seq-spec>4-98</seq-spec>
+</feature>
+<feature>
+  <feature-type>modified-site</feature-type>
+  <description>acetylated amino end (Gly)</description>
+  <seq-spec>1</seq-spec>
+  <status>predicted</status>
+</feature>
+<feature>
+  <feature-type>binding-site</feature-type>
+  <description>heme (Cys) (covalent)</description>
+  <seq-spec>14,17</seq-spec>
+  <status>predicted</status>
+</feature>
+<feature>
+  <feature-type>binding-site</feature-type>
+  <description>heme iron (His, Met) (axial ligands)</description>
+  <seq-spec>18,80</seq-spec>
+  <status>predicted</status>
+</feature>
+<summary>
+  <length>104</length>
+  <type>complete</type>
+  <status>tentative</status>
+</summary>
+<sequence>
+GDVEKGKKIFIMKCSQCHTVEKGGKHKTGPNLHGLFGRKTGQAPGYSYTAANKNKGIIWG
+EDTLMEYLENPKKYIPGTKMIFVGIKKKEERADLIAYLKKATNE
+</sequence>
+</ProteinEntry>
+<ProteinEntry id="CCCZ">
+<header>
+  <uid>CCCZ</uid>
+  <accession>A00002</accession>
+  <created_date>17-Mar-1987</created_date>
+  <seq-rev_date>17-Mar-1987</seq-rev_date>
+  <txt-rev_date>03-Mar-2000</txt-rev_date>
+</header>
+<protein>
+  <name>cytochrome c</name>
+</protein>
+<organism>
+  <source>chimpanzee</source>
+  <common>chimpanzee</common>
+  <formal>Pan troglodytes</formal>
+</organism>
+<reference>
+<refinfo refid="A94601">
+  <authors>
+  <author>Needleman, S.B.</author>
+  </authors>
+  <citation type="submission">submitted to the Atlas</citation>
+  <month>October</month><year>1968</year>
+</refinfo>
+<accinfo label="NEE">
+  <accession>A00002</accession>
+  <mol-type>protein</mol-type>
+  <seq-spec>1-104</seq-spec>
+</accinfo>
+</reference>
+<reference>
+<refinfo refid="A94455">
+  <authors>
+  <author>Needleman, S.B.</author>
+  <author>Margoliash, E.</author>
+  </authors>
+  <citation type="other">unpublished results, 1966, cited by Margoliash, E., and Fitch, W.M., Ann. N.Y. Acad. Sci. 151, 359-381</citation>
+  <year>1968</year>
+</refinfo>
+  <contents>annotation</contents>
+  <contents>compositions of chymotryptic peptides</contents>
+</reference>
+<classification>
+  <superfamily>cytochrome c</superfamily>
+  <superfamily>cytochrome c homology</superfamily>
+</classification>
+<keywords>
+<keyword>acetylated amino end</keyword>
+<keyword>chromoprotein</keyword>
+<keyword>electron transfer</keyword>
+<keyword>heme</keyword>
+<keyword>iron</keyword>
+<keyword>metalloprotein</keyword>
+<keyword>mitochondrion</keyword>
+<keyword>oxidative phosphorylation</keyword>
+<keyword>respiratory chain</keyword>
+</keywords>
+<feature label="CYC">
+  <feature-type>domain</feature-type>
+  <description>cytochrome c homology</description>
+  <seq-spec>4-98</seq-spec>
+</feature>
+<feature>
+  <feature-type>modified-site</feature-type>
+  <description>acetylated amino end (Gly)</description>
+  <seq-spec>1</seq-spec>
+  <status>predicted</status>
+</feature>
+<feature>
+  <feature-type>binding-site</feature-type>
+  <description>heme (Cys) (covalent)</description>
+  <seq-spec>14,17</seq-spec>
+  <status>predicted</status>
+</feature>
+<feature>
+  <feature-type>binding-site</feature-type>
+  <description>heme iron (His, Met) (axial ligands)</description>
+  <seq-spec>18,80</seq-spec>
+  <status>predicted</status>
+</feature>
+<summary>
+  <length>104</length>
+  <type>complete</type>
+  <status>tentative</status>
+</summary>
+<sequence>
+GDVEKGKKIFIMKCSQCHTVEKGGKHKTGPNLHGLFGRKTGQAPGYSYTAANKNKGIIWG
 EDTLMEYLENPKKYIPGTKMIFVGIKKKEERADLIAYLKKATNE
 </sequence>
 </ProteinEntry>

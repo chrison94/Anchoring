@@ -186,43 +186,43 @@ public class SaxImportHandler extends DefaultHandler{
 		
 		/******************* HEADER ******************/
 		if(headerB && !uid && !accession && !createdDate && !seqRevDate && !txtRevDate) {
-			System.out.println("headerB: " + charactersString);
+			// // system.out.println("headerB: " + charactersString);
 		}
 		
 		/******************* HEADER - uid ******************/
 		if(headerB && uid) {
-			System.out.println("uid: " + charactersString);
+			// system.out.println("uid: " + charactersString);
 			header.setUid(charactersString);
 			uid = false;
 		}
 		/******************* HEADER - accession ******************/
 		if(headerB && accession) {
-			System.out.println("accession: " + charactersString );
+			// system.out.println("accession: " + charactersString );
 			accessionsHeader.add(new Accession(charactersString));
 			accession = false;
 		}
 		/******************* HEADER - createdDate ******************/
 		if(headerB && createdDate) {
-			System.out.println("createdDate: " + charactersString );
+			// system.out.println("createdDate: " + charactersString );
 			header.setCreatedDate(charactersString);
 			createdDate = false;
 		}
 		/******************* HEADER - seqRevDate ******************/
 		if(headerB && seqRevDate) {
-			System.out.println("seqRevDate: " + charactersString );
+			// system.out.println("seqRevDate: " + charactersString );
 			header.setSeqRevDate(charactersString);
 			seqRevDate = false;
 		}
 		/******************* HEADER - txtRevDate ******************/
 		if(headerB && txtRevDate) {
-			System.out.println("txtRevDate: " + charactersString );
+			// system.out.println("txtRevDate: " + charactersString );
 			header.setTxtRevDate(charactersString);
 			txtRevDate = false;
 		}
 		
 		/******************* PROTEIN ******************/
 		if(protein) {
-			System.out.println("protein: " + charactersString);
+			// system.out.println("protein: " + charactersString);
 			proteinEntry.setHeader(header);
 			proteinEntry.setProtein(new Protein(charactersString,proteinEntry.getId()));
 		}
@@ -236,19 +236,19 @@ public class SaxImportHandler extends DefaultHandler{
 		/******************* ORGANISM ******************/ 
 		/******************* ORGANISM - source ******************/
 		if(organismB && source) {
-			System.out.println("source: " + charactersString);
+			// system.out.println("source: " + charactersString);
 			organism.setSource(charactersString);
 			source = false;
 		}
 		/******************* ORGANISM - common ******************/
 		if(organismB && common) {
-			System.out.println("common: " + charactersString);
+			// system.out.println("common: " + charactersString);
 			organism.setCommon(charactersString);
 			common = false;
 		}
 		/******************* ORGANISM - formal ******************/
 		if(organismB && formal) {
-			System.out.println("formal: " + charactersString);
+			// system.out.println("formal: " + charactersString);
 			organism.setFormal(charactersString);
 			formal = false;
 		}
@@ -366,13 +366,13 @@ public class SaxImportHandler extends DefaultHandler{
 		
 		/******************* GENETICS ******************/
 		if(genetics) {
-			System.out.println("genetics: " + charactersString);
+			// system.out.println("genetics: " + charactersString);
 			proteinEntry.setGenetics(new Genetics("57/1 67/2"));
 			genetics = false;
 		}
 		
 		if(genetics && introns) {
-			System.out.println("introns: " + charactersString);
+			// system.out.println("introns: " + charactersString);
 			proteinEntry.setGenetics(new Genetics("57/1 67/2"));
 			introns = false;
 			genetics = false;
@@ -392,31 +392,31 @@ public class SaxImportHandler extends DefaultHandler{
 		
 		/******************* FEATURE ******************/ 
 		if(featureB && !featureType && !description && !seqSpec && !status) {
-			System.out.println("featureB: " + charactersString);
+			// system.out.println("featureB: " + charactersString);
 			if(feature== null)feature = new Feature();
 			feature.setId(proteinEntry.getId());
 		}
 		/******************* FEATURE - featureType ******************/ 
 		if(featureB && featureType) {
-			System.out.println("featureType: " + charactersString);
+			// system.out.println("featureType: " + charactersString);
 			feature.setFeatureType(charactersString);
 			featureType = false;
 		}
 		/******************* FEATURE - description ******************/ 
 		if(featureB && description) {
-			System.out.println("description: " + charactersString);
+			// system.out.println("description: " + charactersString);
 			feature.setDescription(charactersString);
 			description = false;
 		}
 		/******************* FEATURE - seqSpec ******************/ 
 		if(featureB && seqSpec) {
-			System.out.println("seqSpec: " + charactersString);
+			// system.out.println("seqSpec: " + charactersString);
 			feature.setSeqSqc(charactersString);
 			seqSpec = false;
 		}
 		/******************* FEATURE - status ******************/ 
 		if(featureB && status) {
-			System.out.println("common: " + charactersString);
+			// system.out.println("common: " + charactersString);
 			feature.setStatus(charactersString);
 			status = false;
 		}
@@ -424,33 +424,33 @@ public class SaxImportHandler extends DefaultHandler{
 		/******************* SUMMARY ******************/ 
 		/******************* SUMMARY - lengthB ******************/ 
 		if(summaryB && lengthB) {
-			System.out.println("lengthB: " + charactersString);
+			// system.out.println("lengthB: " + charactersString);
 			summary.setLength(charactersString);
 			lengthB = false;
 		}
 		/******************* SUMMARY - type ******************/ 
 		if(summaryB && type) {
-			System.out.println("type: " + charactersString);
+			// system.out.println("type: " + charactersString);
 			summary.setType(charactersString);
 			type = false;
 		}
 		/******************* SUMMARY - status ******************/ 
 		if(summaryB && status) {
-			System.out.println("status: " + charactersString);
+			// system.out.println("status: " + charactersString);
 			summary.setStatus(charactersString);
 			status = false;
 		}
 		
 		/******************* SEQUENCE ******************/ 
 		if(sequence) {
-			System.out.println("sequence: " + charactersString);
+			// system.out.println("sequence: " + charactersString);
 			proteinEntry.setSequence(charactersString);
 			sequence = false;
 		}
 		
 		/* TESTS */
 	//	 Runtime rt2 = Runtime.getRuntime();
-	//		System.out.println(rt2.totalMemory() - rt2.freeMemory());
+	//		// system.out.println(rt2.totalMemory() - rt2.freeMemory());
 			
 	}
 }

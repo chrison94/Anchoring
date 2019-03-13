@@ -15,8 +15,7 @@ public class Hashing {
 	    		dataString += obj;
 	    	}							    
 			String dataTransKey = DigestUtils.sha256Hex(dataString);
-			return dataTransKey;
-			
+			return dataTransKey;		
 	    }
 
 	    public String DatabaseEntryHashTimestamp(String hashString, Long timestamp) {	   	    

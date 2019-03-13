@@ -8,16 +8,7 @@
     </Console>
 
   </Appenders>
-  <Loggers>
-    <!-- Log everything in hibernate 
-    <logger name="org.hibernate.type" additivity="false">
-        <level value="TRACE" />
-        <appender-ref ref="console" />
-    </logger>
-	-->
- 
-    <Root level="error">
-      <AppenderRef ref="Console" />
-    </Root>
-  </Loggers>
+  <logger name="org.hibernate">
+ <level value="info"/>
+</logger>
 </Configuration>

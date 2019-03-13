@@ -1,5 +1,7 @@
 package listener;
 
+import static java.util.stream.Collectors.toList;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,28 +22,23 @@ import functions.CreateLists;
 import functions.Hashing;
 import functions.WavesDataTransactions;
 import functions.WavesDataTransactionsTimestamp;
-import threadpool.Threadpool;
 
 public class PostUpdateEventListenerImp implements PostUpdateEventListener {
    
    private static final long serialVersionUID = 1L;
    CreateLists cl = new CreateLists();
-   Threadpool tr = new Threadpool();  
+   ExecutorService executorUp = Executors.newFixedThreadPool(10);
    
    public void onPostUpdate(PostUpdateEvent sa) {
 	   String methodName;
 	   String hashResult = null;
 	   String hashResultTimestamp = null;
-	   Hashing hs = new Hashing();
-	   System.out.println(sa);
-	   System.out.println("------------------------ UPDATE ------------------------");
-   		
+	   Hashing hs = new Hashing();	
 	   try {  
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 		long getTimestamp = time.getTime();
    		Thread.sleep(1);
      	  Object cla = sa.getEntity();
-     	  System.out.println(cla);
      	  Class<?> c = cla.getClass();
      	       	  
      	  Object entryId = null;
@@ -61,7 +58,6 @@ public class PostUpdateEventListenerImp implements PostUpdateEventListener {
      			  data.add(result);
        		  }
      	  }		  
-     	  System.out.println(data + "abcef");
      	  hashResult = hs.DatabaseEntryHash(data);
 
      	  if(!cl.getHashList().contains(hashResult)) {
@@ -85,16 +81,16 @@ public class PostUpdateEventListenerImp implements PostUpdateEventListener {
      		  hashResultTimestamp = hs.DatabaseEntryHashTimestamp(hashResult, getTimestamp);
         	  cl.addHashTimestamp(hashResultTimestamp); 		  
      	  }
-     	  
      	  if(cl.getHashListSize() == 100) {
-     		 tr.threadpoolHandle(cl.getHashList(), cl.getTimestampList());     		 
-     		 tr.threadpoolHandleTimestamp(cl.getHashListTimestamp(), cl.getTimestampList(), cl.getTableNameList(), cl.getEntryIDList());
-     		 cl.clearLists();
-     	  }
-     	  if(c.getSimpleName().contains("backup")) {
-     		 //tr.threadpoolHandle(cl.getHashList(), cl.getTimestampList());	     		 
-     		// tr.threadpoolHandleTimestamp(cl.getHashListTimestamp(), cl.getTimestampList(), cl.getTableNameList(), cl.getEntryIDList());
-     	  }
+     		 List<Object> hashListTmp = cl.getHashList().stream().collect(toList());
+     		 List<Object> timestampListTmp = cl.getTimestampList().stream().collect(toList());
+     		 List<Object> tableNameListTmp = cl.getTableNameList().stream().collect(toList());
+     		 List<Object> hashListTimestampTmp = cl.getHashListTimestamp().stream().collect(toList());
+     		 List<Object> entryListTmp = cl.getEntryIDList().stream().collect(toList());
+     // 		 executorUp.execute(new WavesDataTransactions(hashListTmp, timestampListTmp));
+      //		 executorUp.execute(new WavesDataTransactionsTimestamp(hashListTimestampTmp, timestampListTmp, tableNameListTmp, entryListTmp));
+      		 cl.clearLists();
+     	  }     	 
 
 	} catch (IllegalAccessException e) {
 		// TODO Auto-generated catch block

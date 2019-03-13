@@ -39,6 +39,7 @@ import hibernate.HibernateUtils;
 public class main{
 	public static boolean useDom = false;
 	public static void main(String args[]) throws SAXException, IOException, ParserConfigurationException {
+			double startTime = System.nanoTime();
 		/* DOM */
 		if(useDom) {
 			System.out.println("import xml with DOM");
@@ -49,11 +50,11 @@ public class main{
 			xmlToMysqlDbB(doc);
 		}else {
 		/* SAX */ 
-			System.out.println("import xml with SAX");
+			 System.out.println("import xml with SAX");
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser saxParser = factory.newSAXParser();
 			SaxImportHandler handler = new SaxImportHandler();
-			saxParser.parse("t.xml", handler);
+			saxParser.parse("psd7003.xml", handler);
 			handler.session.close();
 		}
 		
@@ -61,12 +62,16 @@ public class main{
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(new backup(""+new Timestamp(System.currentTimeMillis()).getTime()));
+		
 		session.getTransaction().commit();
 		session.close();
 		
 		// TESTS 
 //		t();
 //		xmlTest();
+		
+		final double duration = System.nanoTime() - startTime;
+		System.out.println("dura: "+ duration/1000000000);
 	}
 	
 	private static void xmlToMysqlDbB(Document doc) {
@@ -97,7 +102,7 @@ public class main{
 	    for(int b=0; b<proteinNodeList.getLength(); b++)
 	    {
 //			Runtime rt = Runtime.getRuntime();
-//			System.out.println(b + " RAMMMMMMMM" + (rt.totalMemory() - rt.freeMemory()));
+//			// System.out.println(b + " RAMMMMMMMM" + (rt.totalMemory() - rt.freeMemory()));
 			
 			Session session = HibernateUtils.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -108,11 +113,11 @@ public class main{
 		    	
 		        if(proteinNode.getNodeType() == Node.ELEMENT_NODE)
 		        {
-		        	System.out.println(proteinNode.getNodeName());
+		     //   	// System.out.println(proteinNode.getNodeName());
 		        	/****************** Init header *******************/
 		        	if(proteinNode.getNodeName() == "header") {
 		        		header = new Header();
-		        		System.out.println("in header");
+		        	//	// System.out.println("in header");
 		        		for(int a=0; a<proteinNode.getChildNodes().getLength(); a++) {
 		        			/****************** uid *******************/
 		        			if(proteinNode.getChildNodes().item(a).getNodeName() == "uid") {
@@ -140,12 +145,12 @@ public class main{
 		        	}
 		        	/****************** Protein *******************/
 		        	if(proteinNode.getNodeName() == "protein") {
-		        		System.out.println("in protein");
+		        	//	// System.out.println("in protein");
 		        		proteinEntry.setProtein(new Protein(proteinNode.getTextContent(),proteinEntry.getId()));
 		        	}
 		        	/****************** Organism *******************/
 		        	if(proteinNode.getNodeName() == "organism") {
-		        		System.out.println("in organism");
+		        	//	// System.out.println("in organism");
 		        		organism = new Organism();
 		        		for(int a=0; a<proteinNode.getChildNodes().getLength(); a++) {
 		        			/****************** Source *******************/
@@ -166,7 +171,7 @@ public class main{
 		        	/****************** Reference *******************/
 		        	if(proteinNode.getNodeName() == "reference") {
 		        		references.clear();
-		        		System.out.println("in reference");
+		       // 		// System.out.println("in reference");
 		        		reference = new Reference();
 		        		reference.setId(proteinEntry.getId());
 		        		for(int a=0; a<proteinNode.getChildNodes().getLength(); a++) {
@@ -238,7 +243,7 @@ public class main{
 		        				Collection<Accession> accessions = new ArrayList<Accession>();
 		        				for(int c=0; c<referenceChild.getChildNodes().getLength(); c++) {
 		        					Node accinfoChild = referenceChild.getChildNodes().item(c);
-		        					System.out.println("");
+		        					// System.out.println("");
 		        					/****************** Accession *******************/
 		        					if(accinfoChild.getNodeName() == "accession") {
 		        						accessions.add(new Accession(accinfoChild.getTextContent()));
@@ -326,7 +331,7 @@ public class main{
 	    			
 	    			/****************** Summary *******************/
 	    			if(proteinNode.getNodeName() == "summary") {
-	    				System.out.println("summary found : " + proteinNode.getTextContent());
+	    				// // System.out.println("summary found : " + proteinNode.getTextContent());
 	    				
 	    				for(int c=0; c<proteinNode.getChildNodes().getLength(); c++) {
 	    					/****************** feature-type *******************/
@@ -347,7 +352,7 @@ public class main{
 	    			
 	    			/****************** Sequence *******************/
 	    			if(proteinNode.getNodeName() == "sequence") {
-	    				System.out.println("sequence: " + proteinNode.getTextContent());
+	    				// System.out.println("sequence: " + proteinNode.getTextContent());
 	    				proteinEntry.setSequence(proteinNode.getTextContent());
 	    			}	    	       
 		        }

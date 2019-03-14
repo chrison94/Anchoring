@@ -67,6 +67,10 @@ public class WavesDataTransactionsTimestamp implements Runnable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			if(e.getMessage().contains("Reason: negative waves balance")) {
+				System.out.println("Sie haben nicht genügend Waves um die Data-Transaction durchzuführen.");
+				System.exit(1);
+			}
 		}	
 	}
 }

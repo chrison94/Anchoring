@@ -6,9 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import org.hibernate.annotations.ColumnDefault;
 
-@Entity(name="backup")
-public class backup {
-	@Id @Column(name="backupId") 	
+@Entity(name="triggeranchor")
+public class TriggerAnchor {
+	@Id @Column(name="triggerAnchorId") 	
 	@GeneratedValue(generator="CUST_GEN")
 	private int id;
 	
@@ -16,7 +16,7 @@ public class backup {
 	@ColumnDefault("null")
  	private String timestamp;
 	
-	public backup(String timestamp) {
+	public TriggerAnchor(String timestamp) {
 		this.timestamp = timestamp;
 	}
 	

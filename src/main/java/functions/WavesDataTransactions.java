@@ -19,7 +19,6 @@ public class WavesDataTransactions implements Runnable {
 	@Override
 	public void run() {
 		sendHash();
-		
 	} 
 	
 	private void sendHash()  {
@@ -53,6 +52,10 @@ public class WavesDataTransactions implements Runnable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			if(e.getMessage().contains("Reason: negative waves balance")) {
+				System.out.println("Sie haben nicht genügend Waves um die Data-Transaction durchzuführen.");
+				System.exit(1);
+			}
 		}	
 	}
 }

@@ -30,9 +30,19 @@ public class PostInsertListenerImp implements PostInsertEventListener {
 	private static final long serialVersionUID = 2L;
     CreateLists cl = new CreateLists();    
 	ExecutorService executorIns = Executors.newFixedThreadPool(10);
+	private int countTrans = 0;
 
 	@Override
 	public void onPostInsert(PostInsertEvent event) {
+		if(countTrans == 26) {
+			try {
+				Thread.sleep(1000);
+				countTrans = 0;
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		   String methodName;
 		   String hashResult = null;
 		   String hashResultTimestamp = null;
@@ -91,12 +101,13 @@ public class PostInsertListenerImp implements PostInsertEventListener {
 	     		 List<Object> tableNameListTmp = cl.getTableNameList().stream().collect(toList());
 	     		 List<Object> hashListTimestampTmp = cl.getHashListTimestamp().stream().collect(toList());
 	     		 List<Object> entryListTmp = cl.getEntryIDList().stream().collect(toList());
-	      	//	 executorIns.execute(new WavesDataTransactions(hashListTmp, timestampListTmp));
-	      	//	 executorIns.execute(new WavesDataTransactionsTimestamp(hashListTimestampTmp, timestampListTmp, tableNameListTmp, entryListTmp));
+	      		 executorIns.submit(new WavesDataTransactions(hashListTmp, timestampListTmp));
+	      		 executorIns.submit(new WavesDataTransactionsTimestamp(hashListTimestampTmp, timestampListTmp, tableNameListTmp, entryListTmp));
 	      		 cl.clearLists();
+	      		 countTrans += 2;
 	     	  }
 	     	  
-	     	  if(c.getSimpleName().contains("backup")) {
+	     	  if(c.getSimpleName().contains("triggeranchor")) {
 	     		  List<Object> hashListTmp = cl.getHashList().stream().collect(toList());
 	     		 List<Object> timestampListTmp = cl.getTimestampList().stream().collect(toList());
 	     		List<Object> tableNameListTmp = cl.getTableNameList().stream().collect(toList());

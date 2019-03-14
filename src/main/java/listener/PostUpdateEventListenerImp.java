@@ -28,8 +28,18 @@ public class PostUpdateEventListenerImp implements PostUpdateEventListener {
    private static final long serialVersionUID = 1L;
    CreateLists cl = new CreateLists();
    ExecutorService executorUp = Executors.newFixedThreadPool(10);
+   int countTrans = 0;
    
    public void onPostUpdate(PostUpdateEvent sa) {
+		if(countTrans == 26) {
+			try {
+				Thread.sleep(1000);
+				countTrans = 0;
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	   String methodName;
 	   String hashResult = null;
 	   String hashResultTimestamp = null;
@@ -87,10 +97,22 @@ public class PostUpdateEventListenerImp implements PostUpdateEventListener {
      		 List<Object> tableNameListTmp = cl.getTableNameList().stream().collect(toList());
      		 List<Object> hashListTimestampTmp = cl.getHashListTimestamp().stream().collect(toList());
      		 List<Object> entryListTmp = cl.getEntryIDList().stream().collect(toList());
-     // 		 executorUp.execute(new WavesDataTransactions(hashListTmp, timestampListTmp));
-      //		 executorUp.execute(new WavesDataTransactionsTimestamp(hashListTimestampTmp, timestampListTmp, tableNameListTmp, entryListTmp));
+      		 executorUp.submit(new WavesDataTransactions(hashListTmp, timestampListTmp));
+      		 executorUp.submit(new WavesDataTransactionsTimestamp(hashListTimestampTmp, timestampListTmp, tableNameListTmp, entryListTmp));
       		 cl.clearLists();
-     	  }     	 
+      		 countTrans += 2;
+     	  }   
+     	  
+     	  if(c.getSimpleName().contains("triggeranchor")) {
+     		  List<Object> hashListTmp = cl.getHashList().stream().collect(toList());
+     		 List<Object> timestampListTmp = cl.getTimestampList().stream().collect(toList());
+     		List<Object> tableNameListTmp = cl.getTableNameList().stream().collect(toList());
+     		  List<Object> hashListTimestampTmp = cl.getHashListTimestamp().stream().collect(toList());
+     		List<Object> entryListTmp = cl.getEntryIDList().stream().collect(toList());
+     		executorUp.execute(new WavesDataTransactions(hashListTmp, timestampListTmp));
+     		executorUp.execute(new WavesDataTransactionsTimestamp(hashListTimestampTmp, timestampListTmp, tableNameListTmp, entryListTmp));
+      		 cl.clearLists();	   	    	    		   	    	    			  
+     	  }
 
 	} catch (IllegalAccessException e) {
 		// TODO Auto-generated catch block

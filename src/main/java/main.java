@@ -33,11 +33,11 @@ import dbimport.Reference;
 import dbimport.SaxImportHandler;
 import dbimport.Summary;
 import dbimport.Xref;
-import dbimport.backup;
+import dbimport.TriggerAnchor;
 import hibernate.HibernateUtils;
 
 public class main{
-	public static boolean useDom = false;
+	public static boolean useDom = true;
 	public static void main(String args[]) throws SAXException, IOException, ParserConfigurationException {
 			double startTime = System.nanoTime();
 		/* DOM */
@@ -47,10 +47,10 @@ public class main{
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new File("psd7003.xml"));
 			doc.getDocumentElement();
-			xmlToMysqlDbB(doc);
+		//	xmlToMysqlDbB(doc);
 		}else {
 		/* SAX */ 
-			 System.out.println("import xml with SAX");
+			System.out.println("import xml with SAX");
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser saxParser = factory.newSAXParser();
 			SaxImportHandler handler = new SaxImportHandler();
@@ -61,8 +61,10 @@ public class main{
 		/* SEND END OBJECT*/
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		session.save(new backup(""+new Timestamp(System.currentTimeMillis()).getTime()));
-		
+		session.save(new TriggerAnchor(""+new Timestamp(System.currentTimeMillis()).getTime()));
+	/*	TriggerAnchor ta = session.get(TriggerAnchor.class, 1); 
+		ta.setTimestamp(""+new Timestamp(System.currentTimeMillis()).getTime());
+		 session.update(ta);*/ 
 		session.getTransaction().commit();
 		session.close();
 		

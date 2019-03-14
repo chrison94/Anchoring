@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,23 +16,23 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import dbimport.AccInfo;
-import dbimport.Accession;
-import dbimport.Author;
-import dbimport.Classification;
-import dbimport.Feature;
-import dbimport.Genetics;
-import dbimport.Header;
-import dbimport.Keyword;
-import dbimport.Organism;
-import dbimport.Protein;
-import dbimport.ProteinEntry;
-import dbimport.RefInfo;
-import dbimport.Reference;
+import dbimport.accinfos;
+import dbimport.accessions;
+import dbimport.authors;
+import dbimport.classifications;
+import dbimport.features;
+import dbimport.genetics;
+import dbimport.headers;
+import dbimport.keywords;
+import dbimport.organism;
+import dbimport.proteins;
+import dbimport.proteinentries;
+import dbimport.refinfos;
+import dbimport.reference;
 import dbimport.SaxImportHandler;
-import dbimport.Summary;
-import dbimport.Xref;
-import dbimport.TriggerAnchor;
+import dbimport.summary;
+import dbimport.xrefs;
+import dbimport.triggeranchor;
 import hibernate.HibernateUtils;
 
 public class main{
@@ -47,7 +46,7 @@ public class main{
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new File("psd7003.xml"));
 			doc.getDocumentElement();
-		//	xmlToMysqlDbB(doc);
+			xmlToMysqlDbB(doc);
 		}else {
 		/* SAX */ 
 			System.out.println("import xml with SAX");
@@ -61,12 +60,16 @@ public class main{
 		/* SEND END OBJECT*/
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
-		session.save(new TriggerAnchor(""+new Timestamp(System.currentTimeMillis()).getTime()));
-	/*	TriggerAnchor ta = session.get(TriggerAnchor.class, 1); 
-		ta.setTimestamp(""+new Timestamp(System.currentTimeMillis()).getTime());
-		 session.update(ta);*/ 
+		session.save(new triggeranchor(""+new Timestamp(System.currentTimeMillis()).getTime()));
 		session.getTransaction().commit();
-		session.close();
+		
+		Session session2 = HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();		
+		triggeranchor ta = session2.get(triggeranchor.class, 1); 
+		ta.setTimestamp(""+new Timestamp(System.currentTimeMillis()).getTime());
+		 session2.update(ta); 
+		session2.getTransaction().commit();
+		session2.close();
 		
 		// TESTS 
 //		t();
@@ -83,21 +86,21 @@ public class main{
 	
 		/*init all ProteinEntries*/
 		Node proteinNode;
-    	Header header = new Header();
-    	Organism organism = new Organism();
-    	Reference reference = new Reference();
-    	RefInfo refinfo = new RefInfo();
-    	ProteinEntry proteinEntry = new ProteinEntry();
-    	Feature feature = new Feature(proteinEntry.getId());
-    	Summary summary = new Summary();
+    	headers header = new headers();
+    	organism organism = new organism();
+    	reference reference = new reference();
+    	refinfos refinfo = new refinfos();
+    	proteinentries proteinEntry = new proteinentries();
+    	features feature = new features(proteinEntry.getId());
+    	summary summary = new summary();
     	
-    	List<Reference> references = new ArrayList<Reference>();
-    	List<Feature> features = new ArrayList<Feature>();
-    	List<Accession> accessionsHeader = new ArrayList<Accession>();
-    	List<Author> authors = new ArrayList<Author>();
-    	List<Xref> xrefs = new ArrayList<Xref>();
-    	List<Classification> classifications = new ArrayList<Classification>();
-    	List<Keyword> keywords = new ArrayList<Keyword>();
+    	List<reference> references = new ArrayList<reference>();
+    	List<features> features = new ArrayList<features>();
+    	List<accessions> accessionsHeader = new ArrayList<accessions>();
+    	List<authors> authors = new ArrayList<authors>();
+    	List<xrefs> xrefs = new ArrayList<xrefs>();
+    	List<classifications> classifications = new ArrayList<classifications>();
+    	List<keywords> keywords = new ArrayList<keywords>();
 
     	
 		/****************** ProteinEntry *******************/
@@ -118,7 +121,7 @@ public class main{
 		     //   	// System.out.println(proteinNode.getNodeName());
 		        	/****************** Init header *******************/
 		        	if(proteinNode.getNodeName() == "header") {
-		        		header = new Header();
+		        		header = new headers();
 		        	//	// System.out.println("in header");
 		        		for(int a=0; a<proteinNode.getChildNodes().getLength(); a++) {
 		        			/****************** uid *******************/
@@ -127,7 +130,7 @@ public class main{
 		        			}
 		        			/****************** accession *******************/
 		        			if(proteinNode.getChildNodes().item(a).getNodeName() == "accession") {
-		        				accessionsHeader.add(new Accession(proteinNode.getChildNodes().item(a).getTextContent()));
+		        				accessionsHeader.add(new accessions(proteinNode.getChildNodes().item(a).getTextContent()));
 		        			}
 		        			/****************** CreatedDate *******************/
 		        			if(proteinNode.getChildNodes().item(a).getNodeName() == "created_date") {
@@ -148,12 +151,12 @@ public class main{
 		        	/****************** Protein *******************/
 		        	if(proteinNode.getNodeName() == "protein") {
 		        	//	// System.out.println("in protein");
-		        		proteinEntry.setProtein(new Protein(proteinNode.getTextContent(),proteinEntry.getId()));
+		        		proteinEntry.setProtein(new proteins(proteinNode.getTextContent(),proteinEntry.getId()));
 		        	}
 		        	/****************** Organism *******************/
 		        	if(proteinNode.getNodeName() == "organism") {
 		        	//	// System.out.println("in organism");
-		        		organism = new Organism();
+		        		organism = new organism();
 		        		for(int a=0; a<proteinNode.getChildNodes().getLength(); a++) {
 		        			/****************** Source *******************/
 		        			if(proteinNode.getChildNodes().item(a).getNodeName() == "source") {
@@ -174,7 +177,7 @@ public class main{
 		        	if(proteinNode.getNodeName() == "reference") {
 		        		references.clear();
 		       // 		// System.out.println("in reference");
-		        		reference = new Reference();
+		        		reference = new reference();
 		        		reference.setId(proteinEntry.getId());
 		        		for(int a=0; a<proteinNode.getChildNodes().getLength(); a++) {
 		        			Node referenceChild = proteinNode.getChildNodes().item(a);
@@ -190,7 +193,7 @@ public class main{
 		        							Node refinfoNodeChildAuthor = refinfoNodeChild.getChildNodes().item(au);
 		        							/****************** Author *******************/
 		        							if(refinfoNodeChildAuthor.getNodeName() == "author") {
-		        								authors.add(new Author(refinfoNodeChildAuthor.getTextContent()));
+		        								authors.add(new authors(refinfoNodeChildAuthor.getTextContent()));
 		        							}
 		        						}
 		        						refinfo.setAuthors(authors);
@@ -229,7 +232,7 @@ public class main{
 		        									/****************** uid *******************/
 		        									uid = (xref.getChildNodes().item(x).getNodeName()== "uid")? xref.getChildNodes().item(x).getTextContent() :"" ;
 		        								}
-		        								xrefs.add(new Xref(db,uid, refinfo.getId(),0));
+		        								xrefs.add(new xrefs(db,uid, refinfo.getId(),0));
 		        							}
 		        						}
 		        						refinfo.setXrefs(xrefs);
@@ -241,14 +244,14 @@ public class main{
 		        			/****************** Accinfo *******************/
 		        			if(referenceChild.getNodeName() == "accinfo") {
 		        				
-		        				AccInfo accinfo = new AccInfo();
-		        				Collection<Accession> accessions = new ArrayList<Accession>();
+		        				accinfos accinfo = new accinfos();
+		        				Collection<accessions> accessions = new ArrayList<accessions>();
 		        				for(int c=0; c<referenceChild.getChildNodes().getLength(); c++) {
 		        					Node accinfoChild = referenceChild.getChildNodes().item(c);
 		        					// System.out.println("");
 		        					/****************** Accession *******************/
 		        					if(accinfoChild.getNodeName() == "accession") {
-		        						accessions.add(new Accession(accinfoChild.getTextContent()));
+		        						accessions.add(new accessions(accinfoChild.getTextContent()));
 		        					}
 		        					/****************** mol-type *******************/
 		        					if(accinfoChild.getNodeName()== "mol-type") {
@@ -272,7 +275,7 @@ public class main{
 		        									/****************** uid *******************/
 		        									uid = (xref.getChildNodes().item(x).getNodeName()== "uid")? xref.getChildNodes().item(x).getTextContent() :"" ;
 		        								}
-		        								xrefs.add(new Xref(db,uid,0,accinfo.getId()));
+		        								xrefs.add(new xrefs(db,uid,0,accinfo.getId()));
 		        							}
 		        						}
 		        						
@@ -288,14 +291,14 @@ public class main{
 		        	}
 	    			/****************** Genetics *******************/
 	    			if(proteinNode.getNodeName() == "genetics") {
-	    				proteinEntry.setGenetics(new Genetics("57/1 67/2"));
+	    				proteinEntry.setGenetics(new genetics("57/1 67/2"));
 	    			}
 		        	
 	    			/****************** Classification *******************/
 	    			if(proteinNode.getNodeName() == "classification") {
 	    				
 	    				for(int c=0; c<proteinNode.getChildNodes().getLength(); c++) {
-	    					classifications.add(new Classification(proteinNode.getChildNodes().item(c).getTextContent()));
+	    					classifications.add(new classifications(proteinNode.getChildNodes().item(c).getTextContent()));
 	    				}
 	    				proteinEntry.setClassification(classifications);
 	    			}
@@ -303,7 +306,7 @@ public class main{
 	    			if(proteinNode.getNodeName() == "keywords") {
 	    				
 	    				for(int c=0; c<proteinNode.getChildNodes().getLength(); c++) {
-	    					keywords.add(new Keyword(proteinEntry.getId(),proteinNode.getChildNodes().item(c).getTextContent()));
+	    					keywords.add(new keywords(proteinEntry.getId(),proteinNode.getChildNodes().item(c).getTextContent()));
 	    				}
 	    				proteinEntry.setKeywords(keywords);
 	    			}
@@ -367,13 +370,13 @@ public class main{
 			session.getTransaction().commit();
 			session.close();
 			
-	    	proteinEntry = new ProteinEntry();
-	    	header = new Header();
-	    	organism = new Organism();
-	    	reference = new Reference();
-	    	refinfo = new RefInfo();
-	    	feature = new Feature();
-	    	summary = new Summary();
+	    	proteinEntry = new proteinentries();
+	    	header = new headers();
+	    	organism = new organism();
+	    	reference = new reference();
+	    	refinfo = new refinfos();
+	    	feature = new features();
+	    	summary = new summary();
 	    	
 	    	references.clear();
 	    	features.clear();
@@ -389,9 +392,9 @@ public class main{
 	
 	private static void xmlTest(){
 		
-		Header h = new Header("test","12.12.2018","adasd","asdasdad",2);
-		List<Accession> l = new ArrayList<Accession>();
-		l.add(new Accession("asd"));
+		headers h = new headers("test","12.12.2018","adasd","asdasdad",2);
+		List<accessions> l = new ArrayList<accessions>();
+		l.add(new accessions("asd"));
 		h.setAccessions(l);
 		
 		Session session = HibernateUtils.getSessionFactory().openSession();

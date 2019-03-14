@@ -12,25 +12,25 @@ import hibernate.HibernateUtils;
 
 public class SaxImportHandler extends DefaultHandler{
 	/* COMPONENT OBJ */
-	Header 			header 			= new Header();
-	Organism 		organism 		= new Organism();
-	Reference 		reference 		= new Reference();
-	RefInfo	 		refinfo 		= new RefInfo();
-	ProteinEntry 	proteinEntry 	= new ProteinEntry();
-	Feature 		feature 		= new Feature(proteinEntry.getId());
-	Summary 		summary 		= new Summary();
-	Xref 			xrefObj 		= new Xref();
-	AccInfo 		accInfoObj 		= new AccInfo();
+	headers 			header 			= new headers();
+	organism 		organism 		= new organism();
+	reference 		reference 		= new reference();
+	refinfos	 		refinfo 		= new refinfos();
+	proteinentries 	proteinEntry 	= new proteinentries();
+	features 		feature 		= new features(proteinEntry.getId());
+	summary 		summary 		= new summary();
+	xrefs 			xrefObj 		= new xrefs();
+	accinfos 		accInfoObj 		= new accinfos();
 	
 	/* COMPONENT OBJ LISTS */
-	List<Reference> 	references 			= new ArrayList<Reference>();
-	List<Feature> 		features 			= new ArrayList<Feature>();
-	List<Accession> 	accessionsHeader 	= new ArrayList<Accession>();
-	List<Accession> 	accessionsAccInfo 	= new ArrayList<Accession>();
-	List<Author> 		authors 			= new ArrayList<Author>();
-	List<Xref> 			xrefs 				= new ArrayList<Xref>();
-	List<Classification> classifications 	= new ArrayList<Classification>();
-	List<Keyword> 		keywords 			= new ArrayList<Keyword>();
+	List<reference> 	references 			= new ArrayList<reference>();
+	List<features> 		features 			= new ArrayList<features>();
+	List<accessions> 	accessionsHeader 	= new ArrayList<accessions>();
+	List<accessions> 	accessionsAccInfo 	= new ArrayList<accessions>();
+	List<authors> 		authors 			= new ArrayList<authors>();
+	List<xrefs> 			xrefs 				= new ArrayList<xrefs>();
+	List<classifications> classifications 	= new ArrayList<classifications>();
+	List<keywords> 		keywords 			= new ArrayList<keywords>();
 	
 	/* SESSION */
 	public Session session;
@@ -160,15 +160,15 @@ public class SaxImportHandler extends DefaultHandler{
 			session.getTransaction().commit();
 			session.close();
 			
-	    	xrefObj 		= new Xref();
-	    	accInfoObj 		= new AccInfo();
-	    	proteinEntry = new ProteinEntry();
-	    	header = new Header();
-	    	organism = new Organism();
-	    	reference = new Reference();
-	    	refinfo = new RefInfo();
-	    	feature = new Feature();
-	    	summary = new Summary();
+	    	xrefObj 		= new xrefs();
+	    	accInfoObj 		= new accinfos();
+	    	proteinEntry = new proteinentries();
+	    	header = new headers();
+	    	organism = new organism();
+	    	reference = new reference();
+	    	refinfo = new refinfos();
+	    	feature = new features();
+	    	summary = new summary();
 	    	
 	    	references.clear();
 	    	features.clear();
@@ -198,7 +198,7 @@ public class SaxImportHandler extends DefaultHandler{
 		/******************* HEADER - accession ******************/
 		if(headerB && accession) {
 			// system.out.println("accession: " + charactersString );
-			accessionsHeader.add(new Accession(charactersString));
+			accessionsHeader.add(new accessions(charactersString));
 			accession = false;
 		}
 		/******************* HEADER - createdDate ******************/
@@ -224,7 +224,7 @@ public class SaxImportHandler extends DefaultHandler{
 		if(protein) {
 			// system.out.println("protein: " + charactersString);
 			proteinEntry.setHeader(header);
-			proteinEntry.setProtein(new Protein(charactersString,proteinEntry.getId()));
+			proteinEntry.setProtein(new proteins(charactersString,proteinEntry.getId()));
 		}
 		
 		if(protein && proteinName) {
@@ -261,14 +261,14 @@ public class SaxImportHandler extends DefaultHandler{
 		/******************* REFINFO ******************/ 
 		if(referenceB && refinfoB) {
 			if(refinfo==null) {
-				refinfo = new RefInfo(); 
+				refinfo = new refinfos(); 
 				authors.clear();
 			}
 		}
 
 		/******************* REFINFO - author ******************/
 		if(referenceB && refinfoB && authorsB && author) {
-			authors.add(new Author(charactersString));
+			authors.add(new authors(charactersString));
 			author = false;
 		}
 		/******************* REFINFO - citation ******************/
@@ -304,7 +304,7 @@ public class SaxImportHandler extends DefaultHandler{
 		}
 		/******************* REFINFO - xref ******************/
 		if(referenceB && refinfoB  && xref && !db && !uid) {
-			xrefObj = new Xref();
+			xrefObj = new xrefs();
 			xrefObj.setFkRefinfoId(refinfo.getId());
 		}
 		/******************* REFINFO - xref - db ******************/
@@ -323,13 +323,13 @@ public class SaxImportHandler extends DefaultHandler{
 		/******************* ACCINFO ******************/ 
 		if(referenceB && accinfo ) {
 			if(accInfoObj== null) {
-				accInfoObj = new AccInfo();
+				accInfoObj = new accinfos();
 				accessionsAccInfo.clear();
 			}
 		}
 		/******************* ACCINFO - accession ******************/ 
 		if(referenceB && accinfo && accession) {
-			accessionsAccInfo.add(new Accession(charactersString));
+			accessionsAccInfo.add(new accessions(charactersString));
 		}
 		/******************* ACCINFO - molType ******************/ 
 		if(referenceB && accinfo && molType) {
@@ -348,7 +348,7 @@ public class SaxImportHandler extends DefaultHandler{
 		}
 		/******************* ACCINFO - xref ******************/ 
 		if(referenceB && accinfo  && xref && !db && !uid) {
-			xrefObj = new Xref();
+			xrefObj = new xrefs();
 			xrefObj.setFkRefinfoId(accInfoObj.getId());
 		}
 		/******************* ACCINFO - xref - db ******************/ 
@@ -367,33 +367,33 @@ public class SaxImportHandler extends DefaultHandler{
 		/******************* GENETICS ******************/
 		if(genetics) {
 			// system.out.println("genetics: " + charactersString);
-			proteinEntry.setGenetics(new Genetics("57/1 67/2"));
+			proteinEntry.setGenetics(new genetics("57/1 67/2"));
 			genetics = false;
 		}
 		
 		if(genetics && introns) {
 			// system.out.println("introns: " + charactersString);
-			proteinEntry.setGenetics(new Genetics("57/1 67/2"));
+			proteinEntry.setGenetics(new genetics("57/1 67/2"));
 			introns = false;
 			genetics = false;
 		}
 		
 		/******************* CLASSIFICATION ******************/
 		if(classification && superFamily) {
-			classifications.add(new Classification(charactersString));
+			classifications.add(new classifications(charactersString));
 			superFamily = false;
 		}
 		
 		/******************* KEYWORDS ******************/
 		if(keyword) {
-			keywords.add(new Keyword(proteinEntry.getId(),charactersString));
+			keywords.add(new keywords(proteinEntry.getId(),charactersString));
 			keyword = false;
 		}
 		
 		/******************* FEATURE ******************/ 
 		if(featureB && !featureType && !description && !seqSpec && !status) {
 			// system.out.println("featureB: " + charactersString);
-			if(feature== null)feature = new Feature();
+			if(feature== null)feature = new features();
 			feature.setId(proteinEntry.getId());
 		}
 		/******************* FEATURE - featureType ******************/ 

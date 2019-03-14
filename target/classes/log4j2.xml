@@ -5,18 +5,18 @@
     <!--  --> Console Appender --> 
  
 
-    <!-- File Appender -->
+    <!-- File Appender 
     <File name="File" fileName="c:/log/app.log">
       <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
     </File>
-
+-->
   </Appenders>
   <Loggers>
-    <!-- Log SQL statements -->
+    <!-- Log SQL statements
     <Logger name="org.hibernate.SQL" level="debug" additivity="false">
       <AppenderRef ref="File" />
     </Logger>
-
+		-->
     <Root level="error">
       <AppenderRef ref="File" />
     </Root>

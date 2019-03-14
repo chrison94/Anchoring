@@ -26,7 +26,7 @@ public class WavesDataTransactions implements Runnable {
 	    PrivateKeyAccount account = PrivateKeyAccount.fromSeed(seed, 0, Account.TESTNET);
 		String address = account.getAddress();
 		Node node = new Node();
-	    long fee = 1300000;
+	    long fee = 1100000;
 	    
 	    int i = 0;	   
 	            	    List<DataEntry<?>> dataT = new LinkedList<DataEntry<?>>(); 	        		

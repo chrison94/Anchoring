@@ -34,7 +34,7 @@ public class PostInsertListenerImp implements PostInsertEventListener {
 
 	@Override
 	public void onPostInsert(PostInsertEvent event) {
-		if(countTrans == 26) {
+		if(countTrans == 30) {
 			try {
 				Thread.sleep(1000);
 				countTrans = 0;
@@ -67,7 +67,7 @@ public class PostInsertListenerImp implements PostInsertEventListener {
 	     			entryId = m.invoke(cla);     			
 	     		 }
 	     		  if(methodName.toLowerCase().contains("get")) {     			 
-	        		  Object result = m.invoke(cla);  
+	        		  Object result = m.invoke(cla);  	       			 
 	     			  data.add(result);
 	       		  }
 	     	  }		  
@@ -115,7 +115,7 @@ public class PostInsertListenerImp implements PostInsertEventListener {
 	     		List<Object> entryListTmp = cl.getEntryIDList().stream().collect(toList());
 	      		 executorIns.execute(new WavesDataTransactions(hashListTmp, timestampListTmp));
 	      		 executorIns.execute(new WavesDataTransactionsTimestamp(hashListTimestampTmp, timestampListTmp, tableNameListTmp, entryListTmp));
-	      		 cl.clearLists();	   	    	    		   	    	    			  
+	      		 cl.clearLists();	   	    	    		   	    	    			  	      		 
 	     	  }
 
 		} catch (IllegalAccessException e) {

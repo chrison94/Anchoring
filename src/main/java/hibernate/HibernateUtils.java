@@ -19,7 +19,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
-import dbimport.Accession;
+import dbimport.accessions;
 
 
  
@@ -65,7 +65,7 @@ public class HibernateUtils {
                registry = registryBuilder.build();
 
                MetadataSources sources = new MetadataSources(registry)
-                     .addAnnotatedClass(Accession.class);
+                     .addAnnotatedClass(accessions.class);
 
                Metadata metadata = sources.getMetadataBuilder().build();
 

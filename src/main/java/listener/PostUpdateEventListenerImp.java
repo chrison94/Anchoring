@@ -31,7 +31,7 @@ public class PostUpdateEventListenerImp implements PostUpdateEventListener {
    int countTrans = 0;
    
    public void onPostUpdate(PostUpdateEvent sa) {
-		if(countTrans == 26) {
+		if(countTrans == 30) {
 			try {
 				Thread.sleep(1000);
 				countTrans = 0;
@@ -57,8 +57,9 @@ public class PostUpdateEventListenerImp implements PostUpdateEventListener {
      	  
      	  for(Method m : allMethods) {
      		  methodName = m.getName();
+     		  
      		  if(!data.contains(c.getSimpleName())) {
-     			 data.add(c.getSimpleName());  
+     			 data.add(c.getSimpleName());
      		  }   
      		 if(methodName.toLowerCase().contains("getid")) {
      			entryId = m.invoke(cla);     			

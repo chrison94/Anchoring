@@ -8,8 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.ColumnDefault;
+
 @Entity(name="reference")
-public class Reference {
+public class reference {
 	@Id @Column(name="id") 	
 	@GeneratedValue(generator="CUST_GEN")
 	private int id;
@@ -18,34 +20,36 @@ public class Reference {
 	private int fkProteinEntryId;
 
 	@Column(name="contents")
+	@ColumnDefault("null")
 	private String contents;
 	@Column(name="note")
+	@ColumnDefault("null")
 	private String note;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkRefInfoId")
-	private RefInfo refinfo;
+	@JoinColumn(name="fkRefInfoId", nullable = true)
+	private refinfos refinfo;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkAccInfoId")
-	private AccInfo accinfo;	
-	
-    public RefInfo getRefinfo() {
-		return refinfo;
-	}
+	@JoinColumn(name="fkAccInfoId", nullable = true)
+	private accinfos accinfo;	
 
-	public void setRefinfo(RefInfo refinfo) {
-		this.refinfo = refinfo;
+	public int getId() {
+		return id;
 	}
 	
-	public AccInfo getAccinfo() {
-		return accinfo;
+	public void setId(int id) {
+		this.id = id;
 	}
 	
-	public void setAccinfo(AccInfo accinfo) {
-		this.accinfo = accinfo;
+	public int getFkProteinEntryId() {
+		return fkProteinEntryId;
 	}
-
+	
+	public void setFkProteinEntryId(int fkProteinEntryId) {
+		this.fkProteinEntryId = fkProteinEntryId;
+	}
+	
 	public String getContents() {
 		return contents;
 	}
@@ -62,23 +66,24 @@ public class Reference {
 		this.note = note;
 	}
 
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getFkProteinEntryId() {
-		return fkProteinEntryId;
-	}
-
-	public void setFkProteinEntryId(int fkProteinEntryId) {
-		this.fkProteinEntryId = fkProteinEntryId;
+	public refinfos getRefinfo() {
+		return refinfo;
 	}
 	
-	public Reference(String note,String contents, int fkProteinEntryId) {
+	public void setRefinfo(refinfos refinfo) {
+		this.refinfo = refinfo;
+	}
+	
+	public accinfos getAccinfo() {
+		return accinfo;
+	}
+	
+	public void setAccinfo(accinfos accinfo) {
+		this.accinfo = accinfo;
+	}
+
+	public reference(String note,String contents, int fkProteinEntryId) {
 		super();
 //		this.refinfo = refinfo;
 //		this.accinfo = accinfo;
@@ -87,12 +92,12 @@ public class Reference {
 		this.fkProteinEntryId = fkProteinEntryId;
 	}
 
-	public Reference(int fkProteinEntryId) {
+	public reference(int fkProteinEntryId) {
 		super();
 		this.fkProteinEntryId = fkProteinEntryId;
 	}
 	
-	public Reference() {
+	public reference() {
 		super();
 	}
 

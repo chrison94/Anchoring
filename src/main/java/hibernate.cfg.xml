@@ -32,29 +32,26 @@
  	  <property name="hibernate.jdbc.time_zone">UTC</property>
     <property name="hibernate.id.new_generator_mappings">false</property>
  	  
-      <mapping class="dbimport.ProteinEntry" />
-      <mapping class="dbimport.Header" />
-      <mapping class="dbimport.Accession" />
-      <mapping class="dbimport.Protein" />
-      <mapping class="dbimport.Organism" />
-      <mapping class="dbimport.Reference" />
-      <mapping class="dbimport.Keyword" />
-      <mapping class="dbimport.Summary" />
-      <mapping class="dbimport.Xref" />
-      <mapping class="dbimport.RefInfo" />
-      <mapping class="dbimport.AccInfo" />
-      <mapping class="dbimport.Genetics" />
-      <mapping class="dbimport.Author" />
-      <mapping class="dbimport.Feature" />
-      <mapping class="dbimport.Classification" />
-	  <mapping class="dbimport.TriggerAnchor" />
+      <mapping class="dbimport.proteinentries" />
+      <mapping class="dbimport.headers" />
+      <mapping class="dbimport.accessions" />
+      <mapping class="dbimport.proteins" />
+      <mapping class="dbimport.organism" />
+      <mapping class="dbimport.reference" />
+      <mapping class="dbimport.keywords" />
+      <mapping class="dbimport.summary" />
+      <mapping class="dbimport.xrefs" />
+      <mapping class="dbimport.refinfos" />
+      <mapping class="dbimport.accinfos" />
+      <mapping class="dbimport.genetics" />
+      <mapping class="dbimport.authors" />
+      <mapping class="dbimport.features" />
+      <mapping class="dbimport.classifications" />
+	  <mapping class="dbimport.triggeranchor" />
  
-   	<!--  <event type="save-update">-->
+   	<!--  <event type="save-update"> -->
   	<event type="post-update">
             <listener class="listener.PostUpdateEventListenerImp"/>               
-    </event>
-    <event type="load">
-            <listener class="listener.LoadEventListenerImp"/>
     </event>
  	<event type="post-insert">
             <listener class="listener.PostInsertListenerImp"/>

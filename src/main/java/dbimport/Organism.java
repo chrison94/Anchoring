@@ -5,18 +5,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.ColumnDefault;
+
 
 @Entity(name="organism")
-public class Organism {
+public class organism {
 	@Id @Column(name="id") 	
 	@GeneratedValue(generator="CUST_GEN")
 	private int id;
 	
 	@Column(name="source")
+	@ColumnDefault("null")
 	private String source;
 	@Column(name="common")
+	@ColumnDefault("null")
 	private String common;
 	@Column(name="formal")
+	@ColumnDefault("null")
 	private String formal;
 
 	
@@ -48,14 +53,14 @@ public class Organism {
 		this.formal = formal;
 	}
 
-	public Organism(String source, String common, String formal, int fkProteinEntry) {
+	public organism(String source, String common, String formal, int fkProteinEntry) {
 		super();
 		this.source = source;
 		this.common = common;
 		this.formal = formal;
 	}
 	
-	public Organism() {
+	public organism() {
 		super();
 	}
 

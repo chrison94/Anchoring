@@ -5,16 +5,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.ColumnDefault;
+
 
 @Entity(name="genetics")
 //@EntityListeners( ListenerGenetics.class )
-public class Genetics {
+public class genetics {
 	
 	@Id @Column(name="id") 	
 	@GeneratedValue(generator="CUST_GEN")
 	private int id;
 	
 	@Column(name="introns")
+	@ColumnDefault("null")
 	private String introns;
 	
 	public int getId() {
@@ -29,12 +32,12 @@ public class Genetics {
 		this.introns = introns;
 	}
 	
-	public Genetics(String introns) {
+	public genetics(String introns) {
 		super();
 		this.introns = introns;
 	}
 	
-	public Genetics() {
+	public genetics() {
 		super();
 	}
 	

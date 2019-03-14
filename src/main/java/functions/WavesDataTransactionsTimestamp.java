@@ -35,7 +35,7 @@ public class WavesDataTransactionsTimestamp implements Runnable {
 		String address = account.getAddress();
 	//	System.out.println(address);
 		Node node = new Node();
-	    long fee = 1300000;
+	    long fee = 1100000;
 	    int i = 0;
 	    List<DataEntry<?>> data = new LinkedList<DataEntry<?>>();
 	    

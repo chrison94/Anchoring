@@ -14,7 +14,9 @@ public class Hashing {
 	    		Object obj = i.next();
 	    		dataString += obj;
 	    	}							    
+	    	System.out.println(dataString);
 			String dataTransKey = DigestUtils.sha256Hex(dataString);
+			System.out.println(dataTransKey);
 			return dataTransKey;		
 	    }
 

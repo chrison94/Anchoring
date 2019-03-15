@@ -7,11 +7,11 @@ public class ProteinDatabase {
 	public String getDatabase() {
 		return this.database;
 	}
-	
+
 	public void setDatabase(String database) {
 		this.database = database;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -19,12 +19,12 @@ public class ProteinDatabase {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public ProteinDatabase(String database) {
 		super();
 		this.database = database;
 	}
-	
+
 	public ProteinDatabase() {
 		super();
 	}

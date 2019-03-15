@@ -7,18 +7,19 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.ColumnDefault;
 
-@Entity(name="keywords")
+@Entity(name = "keywords")
 
 public class keywords {
-	@Id @Column(name="id") 	
-	@GeneratedValue(generator="CUST_GEN")
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(generator = "CUST_GEN")
 	private int id;
-	
-	@Column(name="fkProteinEntryId")
+
+	@Column(name = "fkProteinEntryId")
 	@ColumnDefault("null")
 	private int fkProteinEntryId;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	@ColumnDefault("null")
 	private String name;
 
@@ -50,7 +51,7 @@ public class keywords {
 		super();
 		this.fkProteinEntryId = fkProteinEntryId;
 		this.name = name;
-		if (!this.name.matches(".*[a-z].*") && !this.name.matches(".*[A-Z].*") && !this.name.matches(".[0-9].*")) { 
+		if (!this.name.matches(".*[a-z].*") && !this.name.matches(".*[A-Z].*") && !this.name.matches(".[0-9].*")) {
 			this.name = "null";
 		}
 	}
@@ -58,5 +59,5 @@ public class keywords {
 	public keywords() {
 		super();
 	}
-	
+
 }

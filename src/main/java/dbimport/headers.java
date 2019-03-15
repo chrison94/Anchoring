@@ -12,36 +12,35 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.ColumnDefault;
 
-
-
-@Entity(name="headers")
+@Entity(name = "headers")
 //@EntityListeners( ListenerHeader.class )
-public class headers {	 
-	@Id @Column(name="id") 	
-	@GeneratedValue(generator="CUST_GEN")
+public class headers {
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(generator = "CUST_GEN")
 	private int id;
-	
-	@Column(name="uid")
+
+	@Column(name = "uid")
 	@ColumnDefault("null")
 	private String uid;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkHeaderId", nullable = true)
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkHeaderId", nullable = true)
 	private Collection<accessions> accessions;
-	
-	@Column(name="createdDate")
+
+	@Column(name = "createdDate")
 	@ColumnDefault("null")
 	private String createdDate;
-	
-	@Column(name="seqRevDate")
+
+	@Column(name = "seqRevDate")
 	@ColumnDefault("null")
 	private String seqRevDate;
-	
-	@Column(name="txtRevDate")
+
+	@Column(name = "txtRevDate")
 	@ColumnDefault("null")
 	private String txtRevDate;
-	
-    public int getId() {
+
+	public int getId() {
 		return id;
 	}
 
@@ -88,7 +87,7 @@ public class headers {
 	public headers(String uid, String createdDate, String seqRevDate, String txtRevDate, int fk_proteinEntry) {
 		super();
 		this.uid = uid;
-		//this.accessions = accessions;
+		// this.accessions = accessions;
 		this.createdDate = createdDate;
 		this.seqRevDate = seqRevDate;
 		this.txtRevDate = txtRevDate;
@@ -99,7 +98,7 @@ public class headers {
 	}
 
 	@Override
-    public String toString() {
-        return "uid: " + uid + " createdDate " + createdDate + " seqRevDate " + seqRevDate;
-    }	
+	public String toString() {
+		return "uid: " + uid + " createdDate " + createdDate + " seqRevDate " + seqRevDate;
+	}
 }

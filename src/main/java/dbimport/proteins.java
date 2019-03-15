@@ -7,17 +7,17 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.ColumnDefault;
 
-
-@Entity(name="proteins")
+@Entity(name = "proteins")
 public class proteins {
-	@Id @Column(name="id") 	
-	@GeneratedValue(generator="CUST_GEN")
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(generator = "CUST_GEN")
 	private int id;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	@ColumnDefault("null")
 	private String name;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -26,7 +26,7 @@ public class proteins {
 		this.id = id;
 	}
 
-    public String getName() {
+	public String getName() {
 		return name;
 	}
 
@@ -34,20 +34,20 @@ public class proteins {
 		this.name = name;
 	}
 
-    @Override
-    public String toString() {
-        return "name: "+ getName();
-    }
+	@Override
+	public String toString() {
+		return "name: " + getName();
+	}
 
-	public proteins(String name,int fkProteinEntry) {
+	public proteins(String name, int fkProteinEntry) {
 		super();
 		this.name = name;
-		if (!this.name.matches(".*[a-z].*") && !this.name.matches(".*[A-Z].*") && !this.name.matches(".[0-9].*")) { 
+		if (!this.name.matches(".*[a-z].*") && !this.name.matches(".*[A-Z].*") && !this.name.matches(".[0-9].*")) {
 			this.name = "null";
 		}
 	}
 
 	public proteins() {
 		super();
-	}	
+	}
 }

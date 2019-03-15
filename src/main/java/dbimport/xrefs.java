@@ -7,33 +7,33 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.ColumnDefault;
 
-
-@Entity(name="xrefs")
+@Entity(name = "xrefs")
 public class xrefs {
-	@Id @Column(name="id") 	
-	@GeneratedValue(generator="CUST_GEN")
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(generator = "CUST_GEN")
 	private int id;
-	
-	@Column(name="fkRefinfoId")
+
+	@Column(name = "fkRefinfoId")
 	@ColumnDefault("null")
 	private int fkRefinfoId;
-	
-	@Column(name="fkAccinfoId")
+
+	@Column(name = "fkAccinfoId")
 	@ColumnDefault("null")
 	private int fkAccinofId;
-		
-	@Column(name="db")
+
+	@Column(name = "db")
 	@ColumnDefault("null")
 	private String db;
-	
-	@Column(name="uid")
+
+	@Column(name = "uid")
 	@ColumnDefault("null")
 	private String uid;
-	
-    public int getId() {
+
+	public int getId() {
 		return id;
 	}
-    
+
 	public int getFkRefinfoId() {
 		return fkRefinfoId;
 	}
@@ -41,7 +41,7 @@ public class xrefs {
 	public void setFkRefinfoId(int fkRefinfoId) {
 		this.fkRefinfoId = fkRefinfoId;
 	}
-	
+
 	public String getDb() {
 		return db;
 	}
@@ -49,7 +49,7 @@ public class xrefs {
 	public void setDb(String db) {
 		this.db = db;
 	}
-	
+
 	public String getUid() {
 		return uid;
 	}
@@ -65,8 +65,8 @@ public class xrefs {
 	public void setFkAccinofId(int fkAccinofId) {
 		this.fkAccinofId = fkAccinofId;
 	}
-	
-	public xrefs(String db, String uid,int fkRefinfoId, int fkAccinofId) {
+
+	public xrefs(String db, String uid, int fkRefinfoId, int fkAccinofId) {
 		super();
 		this.db = db;
 		this.uid = uid;
@@ -79,8 +79,8 @@ public class xrefs {
 		this.fkRefinfoId = fkRefinfoId;
 		this.fkAccinofId = fkAccinofId;
 	}
-	
+
 	public xrefs() {
-		
+
 	}
 }

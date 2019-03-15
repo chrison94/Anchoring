@@ -6,20 +6,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import org.hibernate.annotations.ColumnDefault;
 
-@Entity(name="triggeranchor")
+@Entity(name = "triggeranchor")
 public class triggeranchor {
-	@Id @Column(name="triggerAnchorId") 	
-	@GeneratedValue(generator="CUST_GEN")
+	@Id
+	@Column(name = "triggerAnchorId")
+	@GeneratedValue(generator = "CUST_GEN")
 	private int id;
-	
-	@Column(name="timestamp")
+
+	@Column(name = "timestamp")
 	@ColumnDefault("null")
- 	private String timestamp;
-	
+	private String timestamp;
+
 	public triggeranchor(String timestamp) {
 		this.timestamp = timestamp;
 	}
-	
+
 	public int getId() {
 		return id;
 	}

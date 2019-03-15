@@ -12,41 +12,42 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.ColumnDefault;
 
-@Entity(name="refinfos")
+@Entity(name = "refinfos")
 public class refinfos {
-	@Id @Column(name="id") 	
-	@GeneratedValue(generator="CUST_GEN")
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(generator = "CUST_GEN")
 	private int id;
-	
-	@Column(name="citation")
+
+	@Column(name = "citation")
 	@ColumnDefault("null")
 	private String citation;
-	
-	@Column(name="volume")
+
+	@Column(name = "volume")
 	@ColumnDefault("null")
 	private String volume;
-	
-	@Column(name="year")
+
+	@Column(name = "year")
 	@ColumnDefault("null")
 	private String year;
-	
-	@Column(name="pages")
+
+	@Column(name = "pages")
 	@ColumnDefault("null")
 	private String pages;
-	
-	@Column(name="title")
+
+	@Column(name = "title")
 	@ColumnDefault("null")
 	private String title;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkRefinfoId" ,nullable = true)
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkRefinfoId", nullable = true)
 	private Collection<xrefs> xrefs;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkRefinfoId" ,nullable = true)
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkRefinfoId", nullable = true)
 	private Collection<authors> authors;
 
-    public int getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -65,7 +66,7 @@ public class refinfos {
 	public void setCitation(String citation) {
 		this.citation = citation;
 	}
-	
+
 	public String getVolume() {
 		return volume;
 	}
@@ -102,7 +103,7 @@ public class refinfos {
 		this.xrefs = xrefs;
 	}
 
-	public refinfos( String citation, String volume, String year, String pages, String title) {
+	public refinfos(String citation, String volume, String year, String pages, String title) {
 		super();
 //		this.authors = authors;
 		this.citation = citation;
@@ -115,6 +116,5 @@ public class refinfos {
 	public refinfos() {
 		super();
 	}
-
 
 }

@@ -7,21 +7,21 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.ColumnDefault;
 
-
-@Entity(name="classifications")
+@Entity(name = "classifications")
 public class classifications {
-	@Id @Column(name="id") 	
-	@GeneratedValue(generator="CUST_GEN")
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(generator = "CUST_GEN")
 	private int id;
-	
-	@Column(name="fkProteinEntryId")
+
+	@Column(name = "fkProteinEntryId")
 	@ColumnDefault("null")
 	private int fkProteinEntryId;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	@ColumnDefault("null")
 	private String name;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -40,14 +40,14 @@ public class classifications {
 	public String getName() {
 		return name;
 	}
+
 	public classifications(String name) {
 		super();
 		this.name = name;
-		if (!this.name.matches(".*[a-z].*") && !this.name.matches(".*[A-Z].*") && !this.name.matches(".[0-9].*")) { 
+		if (!this.name.matches(".*[a-z].*") && !this.name.matches(".*[A-Z].*") && !this.name.matches(".[0-9].*")) {
 			this.name = "null";
 		}
 	}
-	
 
 	public classifications() {
 		super();

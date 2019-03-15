@@ -7,25 +7,24 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.ColumnDefault;
 
-
-@Entity(name="organism")
+@Entity(name = "organism")
 public class organism {
-	@Id @Column(name="id") 	
-	@GeneratedValue(generator="CUST_GEN")
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(generator = "CUST_GEN")
 	private int id;
-	
-	@Column(name="source")
+
+	@Column(name = "source")
 	@ColumnDefault("null")
 	private String source;
-	@Column(name="common")
+	@Column(name = "common")
 	@ColumnDefault("null")
 	private String common;
-	@Column(name="formal")
+	@Column(name = "formal")
 	@ColumnDefault("null")
 	private String formal;
 
-	
-    public int getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -59,13 +58,13 @@ public class organism {
 		this.common = common;
 		this.formal = formal;
 	}
-	
+
 	public organism() {
 		super();
 	}
 
 	@Override
-    public String toString() {
-        return "source: " + getSource() + " common " + getCommon() + " formal " + getFormal();
-    }
+	public String toString() {
+		return "source: " + getSource() + " common " + getCommon() + " formal " + getFormal();
+	}
 }

@@ -1,6 +1,5 @@
 package dbimport;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,21 +7,21 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.ColumnDefault;
 
-
-@Entity(name="authors")
+@Entity(name = "authors")
 public class authors {
-	@Id @Column(name="id") 	
-	@GeneratedValue(generator="CUST_GEN")
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(generator = "CUST_GEN")
 	private int id;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	@ColumnDefault("null")
 	private String name;
 
-	@Column(name="fkRefinfoId")
+	@Column(name = "fkRefinfoId")
 	@ColumnDefault("null")
 	private int fkRefinfoId;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -34,7 +33,7 @@ public class authors {
 	public int getFkRefinfoId() {
 		return fkRefinfoId;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -43,7 +42,7 @@ public class authors {
 		this.name = name;
 	}
 
-	public authors( String name) {
+	public authors(String name) {
 		super();
 		this.name = name;
 	}

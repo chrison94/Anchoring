@@ -7,45 +7,45 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.ColumnDefault;
 
-
-@Entity(name="features")
+@Entity(name = "features")
 public class features {
-	@Id @Column(name="id") 	
-	@GeneratedValue(generator="CUST_GEN")
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(generator = "CUST_GEN")
 	private int id;
-	
-	@Column(name="fkProteinEntryId")
+
+	@Column(name = "fkProteinEntryId")
 	@ColumnDefault("null")
 	private int fk_proteinEntry;
-	
-	@Column(name="featureType")
+
+	@Column(name = "featureType")
 	@ColumnDefault("null")
 	private String featureType;
-	
-	@Column(name="description")
+
+	@Column(name = "description")
 	@ColumnDefault("null")
 	private String description;
-	
-	@Column(name="seqSqc")
+
+	@Column(name = "seqSqc")
 	@ColumnDefault("null")
 	private String seqSqc;
-	
-	@Column(name="status")
+
+	@Column(name = "status")
 	@ColumnDefault("null")
 	private String status;
-	
-    public int getId() {
+
+	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
 	}
-    
+
 	public int getFkProteinEntryId() {
 		return fk_proteinEntry;
 	}
-	
+
 	public String getFeatureType() {
 		return featureType;
 	}
@@ -69,7 +69,7 @@ public class features {
 	public void setSeqSqc(String seqSqc) {
 		this.seqSqc = seqSqc;
 	}
-	
+
 	public String getStatus() {
 		return status;
 	}
@@ -95,10 +95,11 @@ public class features {
 	public features() {
 		super();
 	}
-	
+
 	@Override
-    public String toString() {
-        return "featureType: " + getFeatureType() + " description " + getDescription() + " seqSqc " + getSeqSqc() + " status " +getStatus();
-    }
+	public String toString() {
+		return "featureType: " + getFeatureType() + " description " + getDescription() + " seqSqc " + getSeqSqc()
+				+ " status " + getStatus();
+	}
 
 }

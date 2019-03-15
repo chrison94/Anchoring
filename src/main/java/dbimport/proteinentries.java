@@ -14,67 +14,68 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
-@Entity(name="proteinentries")
-public class proteinentries{
-	
-	@Id @Column(name="id") 	
-	@GeneratedValue(generator="CUST_GEN")
+@Entity(name = "proteinentries")
+public class proteinentries {
+
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(generator = "CUST_GEN")
 	private int id;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkHeaderId", nullable = true)
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkHeaderId", nullable = true)
 	private headers header;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkProteinId", nullable = true)
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkProteinId", nullable = true)
 	private proteins protein;
-	
- 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkOrganismId", nullable = true)
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkOrganismId", nullable = true)
 	private organism organism;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkProteinEntryId", nullable = true)
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkProteinEntryId", nullable = true)
 	private Collection<reference> references;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkGeneticsId"	, nullable = true)
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkGeneticsId", nullable = true)
 	private genetics genetics;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkProteinEntryId", nullable = true)
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkProteinEntryId", nullable = true)
 	private Collection<classifications> classification;
 
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkProteinEntryId", nullable = true)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkProteinEntryId", nullable = true)
 	private Collection<keywords> keywords;
 
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkProteinEntryId", nullable = true)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkProteinEntryId", nullable = true)
 	private Collection<features> features;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkSummaryId", updatable=false, nullable = true)
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkSummaryId", updatable = false, nullable = true)
 	private summary summary;
-	
-	@Column(name="sequence")
+
+	@Column(name = "sequence")
 	@ColumnDefault("null")
 	private String sequence;
-	
-    public proteinentries(String sequence) {
+
+	public proteinentries(String sequence) {
 		super();
 //		this.header = header;
 //		this.protein = protein;
 //		this.organism = organism;
-		//this.genetics = genetics;
-		//this.summary = summary;
+		// this.genetics = genetics;
+		// this.summary = summary;
 //		this.references = references;
 //		this.classification = classification;
 //		this.keywords = keywords;
 //		this.features = features;
 		this.sequence = sequence;
 	}
-    
+
 	public proteinentries() {
 	}
 
@@ -85,15 +86,15 @@ public class proteinentries{
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public String getSequence() {
 		return sequence;
 	}
-	
+
 	public void setSequence(String sequence) {
 		this.sequence = sequence;
-	}	
-	
+	}
+
 	public headers getHeader() {
 		return header;
 	}
@@ -105,7 +106,7 @@ public class proteinentries{
 	public proteins getProtein() {
 		return protein;
 	}
-	
+
 	public void setProtein(proteins protein) {
 		this.protein = protein;
 	}
@@ -117,6 +118,7 @@ public class proteinentries{
 	public void setOrganism(organism organism) {
 		this.organism = organism;
 	}
+
 	public genetics getGenetics() {
 		return genetics;
 	}
@@ -124,6 +126,7 @@ public class proteinentries{
 	public void setGenetics(genetics genetics) {
 		this.genetics = genetics;
 	}
+
 	public summary getSummary() {
 		return summary;
 	}

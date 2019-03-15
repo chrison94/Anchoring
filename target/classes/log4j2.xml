@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
- 
- 	<Appenders> 
-    <!--  --> Console Appender --> 
- 
 
-    <!-- File Appender 
-    <File name="File" fileName="c:/log/app.log">
-      <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
-    </File>
--->
-  </Appenders>
-  <Loggers>
-    <!-- Log SQL statements
-    <Logger name="org.hibernate.SQL" level="debug" additivity="false">
-      <AppenderRef ref="File" />
-    </Logger>
-		-->
-    <Root level="error">
-      <AppenderRef ref="File" />
-    </Root>
-  </Loggers>
+	<Appenders>
+		<!-- Console Appender -->
+		<!-- File Appender <File name="File" fileName="c:/log/app.log"> <PatternLayout 
+			pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" /> 
+			</File> -->
+	</Appenders>
+	<Loggers>
+		<!-- Log SQL statements <Logger name="org.hibernate.SQL" level="debug" 
+			additivity="false"> <AppenderRef ref="File" /> </Logger> -->
+		<Root level="error">
+			<!-- <AppenderRef ref="File" /> -->
+		</Root>
+	</Loggers>
 </Configuration>

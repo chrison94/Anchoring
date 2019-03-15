@@ -13,28 +13,29 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
-@Entity(name="accinfos")
+@Entity(name = "accinfos")
 public class accinfos {
-	@Id @Column(name="id") 	
-	@GeneratedValue(generator="CUST_GEN")
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(generator = "CUST_GEN")
 	private int id;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkAccInfoId", nullable = true)
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkAccInfoId", nullable = true)
 	private Collection<accessions> accessions;
-	
-	@Column(name="moltype")
+
+	@Column(name = "moltype")
 	@ColumnDefault("null")
 	private String molType;
-	
-	@Column(name="seqspec")
+
+	@Column(name = "seqspec")
 	@ColumnDefault("null")
 	private String seqSpec;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="fkAccinfoId", nullable = true)
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkAccinfoId", nullable = true)
 	private List<xrefs> xrefs;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -62,12 +63,12 @@ public class accinfos {
 	public void setSeqSpec(String seqSpec) {
 		this.seqSpec = seqSpec;
 	}
-	
+
 	public void setXrefs(List<xrefs> xrefs) {
 		this.xrefs = xrefs;
 	}
 
-	public accinfos(Collection<accessions> accession,String molType, String seqSpec) {
+	public accinfos(Collection<accessions> accession, String molType, String seqSpec) {
 		super();
 		this.accessions = accession;
 		this.molType = molType;

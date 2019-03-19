@@ -17,6 +17,8 @@ public class triggeranchor {
 	@ColumnDefault("null")
 	private String timestamp;
 
+	public triggeranchor() {}
+	
 	public triggeranchor(String timestamp) {
 		this.timestamp = timestamp;
 	}

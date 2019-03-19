@@ -45,7 +45,7 @@ public class main {
 			System.out.println("import xml with DOM");
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(new File("psd7003.xml"));
+			Document doc = builder.parse(new File("t.xml"));
 			doc.getDocumentElement();
 			xmlToMysqlDbB(doc);
 		} else {
@@ -63,6 +63,11 @@ public class main {
 		session.beginTransaction();
 		session.save(new triggeranchor("" + new Timestamp(System.currentTimeMillis()).getTime()));
 		session.getTransaction().commit();
+		triggeranchor t2 = session.find(triggeranchor.class,1);
+	       if(t2 != null) {
+	           t2.setTimestamp("Boah timestamp mega");
+	           session.update(t2);
+	       }
 
 		// final double duration = System.nanoTime() - startTime;
 		// System.out.println("dura: "+ duration/1000000000);

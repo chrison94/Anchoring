@@ -355,8 +355,11 @@ public class main {
 
 					/****************** Sequence *******************/
 					if (proteinNode.getNodeName() == "sequence") {
-						// System.out.println("sequence: " + proteinNode.getTextContent());
-						proteinEntry.setSequence(proteinNode.getTextContent());
+						String snew = "";
+						for(String s : proteinNode.getTextContent().split("\n")){
+							snew += s;
+						}
+						proteinEntry.setSequence(snew);
 					}
 				}
 			}

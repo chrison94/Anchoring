@@ -20,7 +20,6 @@ import org.hibernate.persister.entity.EntityPersister;
 import functions.CreateLists;
 import functions.Hashing;
 import functions.WavesDataTransactions;
-import functions.WavesDataTransactionsTimestamp;
 
 public class PostUpdateEventListenerImp implements PostUpdateEventListener {
 
@@ -82,10 +81,10 @@ public class PostUpdateEventListenerImp implements PostUpdateEventListener {
 				cl.addTableName(c.getSimpleName());
 				cl.addDbEntry(entryId.toString());
 			} else {
-				int indexOfDouble = cl.getHashList().indexOf(hashResult);
+				int indexOfEntry = cl.getHashList().indexOf(hashResult);
 
 				/* remove double entry */
-				cl.removeDouble(indexOfDouble);
+				cl.removeEntry(indexOfEntry);
 
 				/* add new entry */
 				cl.addHashList(hashResult);
@@ -106,6 +105,11 @@ public class PostUpdateEventListenerImp implements PostUpdateEventListener {
 			}
 
 			if (c.getSimpleName().contains("triggeranchor")) {
+				System.out.println(cl.getHashList());
+				System.out.println(cl.getTableNameList());
+				int indexOfEntry = cl.getHashList().indexOf(hashResult);
+				cl.removeEntry(indexOfEntry);
+				System.out.println(cl.getHashList());
 				List<Object> hashListTmp = cl.getHashList().stream().collect(toList());
 				List<Object> timestampListTmp = cl.getTimestampList().stream().collect(toList());
 				List<Object> tableNameListTmp = cl.getTableNameList().stream().collect(toList());

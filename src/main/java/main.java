@@ -30,35 +30,22 @@ import dbimport.proteins;
 import dbimport.proteinentries;
 import dbimport.refinfos;
 import dbimport.reference;
-import dbimport.SaxImportHandler;
 import dbimport.summary;
 import dbimport.xrefs;
 import dbimport.triggeranchor;
 import hibernate.HibernateUtils;
 
 public class main {
-	static Configuration conf = new Configuration();
-	static boolean useDom = conf.getUseDom();
 
 	public static void main(String args[]) throws SAXException, IOException, ParserConfigurationException {
 		// double startTime = System.nanoTime();
-		/* DOM */
-		if (useDom) {
+		/* DOM */	
 			System.out.println("import xml with DOM");
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(new File("psd7003.xml"));
+			Document doc = builder.parse(new File("t.xml"));
 			doc.getDocumentElement();
 			xmlToMysqlDbB(doc);
-		} else {
-			/* SAX */
-			System.out.println("import xml with SAX");
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-			SAXParser saxParser = factory.newSAXParser();
-			SaxImportHandler handler = new SaxImportHandler();
-			saxParser.parse("psd7003.xml", handler);
-			handler.session.close();
-		}
 
 		/* SEND END OBJECT */
 		Session session = HibernateUtils.getSessionFactory().openSession();

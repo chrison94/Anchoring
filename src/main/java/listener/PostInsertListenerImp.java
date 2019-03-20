@@ -19,7 +19,6 @@ import org.hibernate.persister.entity.EntityPersister;
 import functions.CreateLists;
 import functions.Hashing;
 import functions.WavesDataTransactions;
-import functions.WavesDataTransactionsTimestamp;
 
 public class PostInsertListenerImp implements PostInsertEventListener {
 
@@ -87,10 +86,10 @@ public class PostInsertListenerImp implements PostInsertEventListener {
 				cl.addTableName(c.getSimpleName());
 				cl.addDbEntry(entryId.toString());
 			} else {
-				int indexOfDouble = cl.getHashList().indexOf(hashResult);
+				int indexOfEntry = cl.getHashList().indexOf(hashResult);
 
 				/* remove double entry */
-				cl.removeDouble(indexOfDouble);
+				cl.removeEntry(indexOfEntry);
 
 				/* add new entry */
 				cl.addHashList(hashResult);
@@ -105,13 +104,13 @@ public class PostInsertListenerImp implements PostInsertEventListener {
 				List<Object> tableNameListTmp = cl.getTableNameList().stream().collect(toList());
 				List<Object> entryListTmp = cl.getEntryIDList().stream().collect(toList());
 				executorIns.submit(new WavesDataTransactions(hashListTmp, timestampListTmp, tableNameListTmp, entryListTmp));
-			//	executorIns.submit(new WavesDataTransactionsTimestamp(hashListTimestampTmp, timestampListTmp,
-			//			tableNameListTmp, entryListTmp));
 				cl.clearLists();
 				countTrans += 2;
 			}
 
 			if (c.getSimpleName().contains("triggeranchor")) {
+				int indexOfEntry = cl.getHashList().indexOf(hashResult);
+				cl.removeEntry(indexOfEntry);
 				List<Object> hashListTmp = cl.getHashList().stream().collect(toList());
 				List<Object> timestampListTmp = cl.getTimestampList().stream().collect(toList());
 				List<Object> tableNameListTmp = cl.getTableNameList().stream().collect(toList());

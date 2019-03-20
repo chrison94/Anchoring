@@ -53,11 +53,11 @@ public class CreateLists {
 		entryID.clear();
 	}
 
-	public void removeDouble(int indexOfDouble) {
-		hashList.remove(indexOfDouble);
-		timestampList.remove(indexOfDouble);
-		entryID.remove(indexOfDouble);
-		tableName.remove(indexOfDouble);
+	public void removeEntry(int indexOfEntry) {
+		hashList.remove(indexOfEntry);
+		timestampList.remove(indexOfEntry);
+		entryID.remove(indexOfEntry);
+		tableName.remove(indexOfEntry);
 	}
 
 }

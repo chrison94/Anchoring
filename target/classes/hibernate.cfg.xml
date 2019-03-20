@@ -2,33 +2,61 @@
 <!DOCTYPE hibernate-configuration PUBLIC
 "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
- 
+
 <hibernate-configuration>
- 
-  <session-factory>
-      <!-- Database connection settings -->
-      <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-      <property name="connection.url">jdbc:mysql://localhost:3306/film</property>
-      <property name="connection.username">root</property>
-      <property name="connection.password">fkmci8Bj@</property>
- 
-      <!-- JDBC connection pool (use the built-in) -->
-      <property name="connection.pool_size">1</property>
- 
-      <!-- SQL dialect -->
-      <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
- 
-      <!-- Enable Hibernate's automatic session context management -->
-      <property name="current_session_context_class">thread</property>
- 
-      <!-- Disable the second-level cache -->
-      <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
- 
-      <!-- Echo all executed SQL to stdout -->
-      <property name="show_sql">true</property>
- 
-      <mapping class="entities.film" />
- 
-  </session-factory>
- 
+
+	<session-factory>
+		<!-- Database connection settings -->
+		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/dbasa?useTimezone=true&amp;serverTimezone=UTC&amp;useLegacyDatetimeCode=false</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password"></property>
+
+		<!-- JDBC connection pool (use the built-in) -->
+		<property name="connection.pool_size">1</property>
+
+		<!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+		<!-- Enable Hibernate's automatic session context management -->
+		<property name="current_session_context_class">thread</property>
+
+		<!-- Disable the second-level cache -->
+		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">false</property>
+
+		<property name="hibernate.format_sql">true</property>
+
+		<property name="hibernate.jdbc.time_zone">UTC</property>
+		<property name="hibernate.id.new_generator_mappings">false</property>
+
+		<mapping class="dbimport.proteinentries" />
+		<mapping class="dbimport.headers" />
+		<mapping class="dbimport.accessions" />
+		<mapping class="dbimport.proteins" />
+		<mapping class="dbimport.organism" />
+		<mapping class="dbimport.reference" />
+		<mapping class="dbimport.keywords" />
+		<mapping class="dbimport.summary" />
+		<mapping class="dbimport.xrefs" />
+		<mapping class="dbimport.refinfos" />
+		<mapping class="dbimport.accinfos" />
+		<mapping class="dbimport.genetics" />
+		<mapping class="dbimport.authors" />
+		<mapping class="dbimport.features" />
+		<mapping class="dbimport.classifications" />
+		<mapping class="dbimport.triggeranchor" />
+
+		<!-- <event type="save-update"> -->
+		<event type="post-update">
+			<listener class="listener.PostUpdateEventListenerImp" />
+		</event>
+		<event type="post-insert">
+			<listener class="listener.PostInsertListenerImp" />
+		</event>
+
+	</session-factory>
+
 </hibernate-configuration>

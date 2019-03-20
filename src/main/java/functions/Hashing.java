@@ -1,21 +1,35 @@
 package functions;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import java.io.*;
+import java.util.Iterator;
+import java.util.List;
+import config.Configuration;
 
 public class Hashing {
+	Configuration conf = new Configuration();
+	
+	public String DatabaseEntryHash(List<Object> dataL) {
+		String dataString = conf.getHashSeed();
+		//String dataString = "DbAnchoring2k18HRWProjektSeed";
+		Iterator<Object> i = dataL.iterator();
+		while (i.hasNext()) {
+			Object obj = i.next();
+			dataString += obj;
+		}
+		String dataTransKey = DigestUtils.sha256Hex(dataString);
+		return dataTransKey;
+	}
 
-	    public String inputStreamDigest() {
-	        System.out.println("SHAHashDemo.inputStreamDigest");
-	        String data = System.getProperty("user.dir") + "/test.txt";
-	        File file = new File(data);
-	        try {
-	            InputStream is = new FileInputStream(file);
-	            String digest = DigestUtils.sha256Hex(is);	         
-	            return digest;
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	        return "Fehler";
-	    }
+	public String DatabaseEntryHashTimestamp(String hashString, Long timestamp) {
+		String timestampS = Long.toString(timestamp);
+		String dataTransKey = hashString + timestampS;
+		dataTransKey = DigestUtils.sha256Hex(dataTransKey);
+		return dataTransKey;
+	}
+
+	public String DatabaseValidateHash(String validateString) {
+		String dataTransKey = DigestUtils.sha256Hex(validateString);
+		return dataTransKey;
+	}
+
 }

@@ -8,10 +8,10 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.ColumnDefault;
 
-import listener.PostUpdateEventListenerImp;
+import listener.SaveOrUpdateEventListenerImp;
 
 @Entity(name = "accessions")
-@EntityListeners(PostUpdateEventListenerImp.class)
+@EntityListeners(SaveOrUpdateEventListenerImp.class)
 public class accessions {
 	@Id
 	@Column(name = "id")

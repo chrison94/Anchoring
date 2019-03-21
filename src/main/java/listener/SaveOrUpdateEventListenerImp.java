@@ -13,22 +13,26 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.event.spi.PostUpdateEvent;
 import org.hibernate.event.spi.PostUpdateEventListener;
+import org.hibernate.event.spi.SaveOrUpdateEvent;
+import org.hibernate.event.spi.SaveOrUpdateEventListener;
 import org.hibernate.persister.entity.EntityPersister;
 
 import functions.CreateLists;
 import functions.Hashing;
 import functions.WavesDataTransactions;
 
-public class PostUpdateEventListenerImp implements PostUpdateEventListener {
+public class SaveOrUpdateEventListenerImp implements SaveOrUpdateEventListener {
 
 	private static final long serialVersionUID = 1L;
 	CreateLists cl = new CreateLists();
 	ExecutorService executorUp = Executors.newFixedThreadPool(10);
 	int countTrans = 0;
 
-	public void onPostUpdate(PostUpdateEvent sa) {
+	@Override
+	public void onSaveOrUpdate(SaveOrUpdateEvent sa) throws HibernateException {
 		if (countTrans == 30) {
 			try {
 				Thread.sleep(1000);
@@ -58,7 +62,6 @@ public class PostUpdateEventListenerImp implements PostUpdateEventListener {
 					return method1.getName().compareToIgnoreCase(method2.getName());
 				}
 			});
-
 			for (Method m : allMethods) {
 				methodName = m.getName();
 
@@ -98,25 +101,18 @@ public class PostUpdateEventListenerImp implements PostUpdateEventListener {
 				List<Object> tableNameListTmp = cl.getTableNameList().stream().collect(toList());
 				List<Object> entryListTmp = cl.getEntryIDList().stream().collect(toList());
 				executorUp.submit(new WavesDataTransactions(hashListTmp, timestampListTmp, tableNameListTmp, entryListTmp));
-		//		executorUp.submit(new WavesDataTransactionsTimestamp(hashListTimestampTmp, timestampListTmp,
-		//				tableNameListTmp, entryListTmp));
 				cl.clearLists();
 				countTrans += 2;
 			}
 
-			if (c.getSimpleName().contains("triggeranchor")) {
-				System.out.println(cl.getHashList());
-				System.out.println(cl.getTableNameList());
+			if (c.getSimpleName().contains("triggeranchor")) {				
 				int indexOfEntry = cl.getHashList().indexOf(hashResult);
-				cl.removeEntry(indexOfEntry);
-				System.out.println(cl.getHashList());
+				cl.removeEntry(indexOfEntry);				
 				List<Object> hashListTmp = cl.getHashList().stream().collect(toList());
 				List<Object> timestampListTmp = cl.getTimestampList().stream().collect(toList());
 				List<Object> tableNameListTmp = cl.getTableNameList().stream().collect(toList());
 				List<Object> entryListTmp = cl.getEntryIDList().stream().collect(toList());
 				executorUp.submit(new WavesDataTransactions(hashListTmp, timestampListTmp, tableNameListTmp, entryListTmp));
-		//		executorUp.submit(new WavesDataTransactionsTimestamp(hashListTimestampTmp, timestampListTmp,
-		//				tableNameListTmp, entryListTmp));
 				cl.clearLists();
 			}
 
@@ -133,11 +129,5 @@ public class PostUpdateEventListenerImp implements PostUpdateEventListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public boolean requiresPostCommitHanding(EntityPersister persister) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

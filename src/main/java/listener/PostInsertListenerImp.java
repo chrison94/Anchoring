@@ -63,8 +63,7 @@ public class PostInsertListenerImp implements PostInsertEventListener {
 				public int compare(Method method1, Method method2) {
 					return method1.getName().compareToIgnoreCase(method2.getName());
 				}
-			});
-
+			});		
 			for (Method m : allMethods) {
 				methodName = m.getName();
 				if (!data.contains(c.getSimpleName())) {
@@ -116,8 +115,6 @@ public class PostInsertListenerImp implements PostInsertEventListener {
 				List<Object> tableNameListTmp = cl.getTableNameList().stream().collect(toList());
 				List<Object> entryListTmp = cl.getEntryIDList().stream().collect(toList());
 				executorIns.submit(new WavesDataTransactions(hashListTmp, timestampListTmp, tableNameListTmp, entryListTmp));
-				//executorIns.execute(new WavesDataTransactionsTimestamp(hashListTimestampTmp, timestampListTmp,
-				//		tableNameListTmp, entryListTmp));
 				cl.clearLists();
 			}
 

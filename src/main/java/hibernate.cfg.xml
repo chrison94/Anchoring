@@ -50,8 +50,8 @@
 		<mapping class="dbimport.triggeranchor" />
 
 		<!-- <event type="save-update"> -->
-		<event type="post-update">
-			<listener class="listener.PostUpdateEventListenerImp" />
+		<event type="save">
+			<listener class="listener.SaveOrUpdateEventListenerImp" />
 		</event>
 		<event type="post-insert">
 			<listener class="listener.PostInsertListenerImp" />

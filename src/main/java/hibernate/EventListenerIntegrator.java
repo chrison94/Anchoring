@@ -8,7 +8,7 @@ import org.hibernate.integrator.spi.Integrator;
 import org.hibernate.service.spi.SessionFactoryServiceRegistry;
 
 import listener.PostInsertListenerImp;
-import listener.PostUpdateEventListenerImp;
+import listener.SaveOrUpdateEventListenerImp;
 
 public class EventListenerIntegrator implements Integrator {
 
@@ -18,8 +18,7 @@ public class EventListenerIntegrator implements Integrator {
 
 		EventListenerRegistry eventListenerRegistry = serviceRegistry.getService(EventListenerRegistry.class);
 
-		eventListenerRegistry.getEventListenerGroup(EventType.POST_UPDATE)
-				.appendListener(new PostUpdateEventListenerImp());
+		eventListenerRegistry.getEventListenerGroup(EventType.SAVE).appendListener(new SaveOrUpdateEventListenerImp());
 		eventListenerRegistry.getEventListenerGroup(EventType.POST_INSERT).appendListener(new PostInsertListenerImp());
 	}
 

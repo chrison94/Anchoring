@@ -11,6 +11,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -32,6 +33,7 @@ import dbimport.refinfos;
 import dbimport.reference;
 import dbimport.summary;
 import dbimport.xrefs;
+import functions.JsonToDB;
 import dbimport.triggeranchor;
 import hibernate.HibernateUtils;
 
@@ -48,18 +50,20 @@ public class main {
 			xmlToMysqlDbB(doc);
 
 		/* SEND END OBJECT */
+	            
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(new triggeranchor("" + new Timestamp(System.currentTimeMillis()).getTime()));
 		session.getTransaction().commit();
-		triggeranchor t2 = session.find(triggeranchor.class,1);
-	       if(t2 != null) {
-	           t2.setTimestamp("12345");
-	           session.update(t2);
-	       }
+		
+		Query query = session.createQuery("update accessions set fkHeaderid=10 where id = 1");
+	    session.beginTransaction();
+        query.executeUpdate();
+        session.getTransaction().commit();
+
 
 		// final double duration = System.nanoTime() - startTime;
-		// System.out.println("dura: "+ duration/1000000000);
+		// System.out.println("dura: "+ duration/1000000000); 
 		System.out.println("Import und Anchoring abgeschlossen");
 	}
 
